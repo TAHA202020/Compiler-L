@@ -8,21 +8,56 @@ alpha = [lettre + ['_' + '$']];
 alphanum = [lettre + chiffre];
 
 Tokens
-
 espaces = (' ' | 13 | 10)+;
 commentaire= '#' [[0 .. 0xffff] - [10 + 13]]* (10 | 13 | 10 13);
 virgule = ',';
+egale='=';
+op='+'|'-'|'*'|'/';
+opl='&'|'|'|'!';
+cmp='<'|'>'|'=';
+epsilon='ε';
+cg='(';
+sinon='sinon';
+cd=')';
+pv=';';
+acg='{';
+acd='}';
+si='si';
+alors='alors';
+main='main()';
 nombre = chiffre+;
+type ='entier' | 'bool';
 identif = alpha alphanum*;
-
 Ignored Tokens
 
 espaces, commentaire;
 
 Productions
 
-// l'axiome
 
-programme = listedecvar listedecfonc ;
+variable= type identif;
+
+exp=identif | nombre;
+
+programme =function programme | main;
+
+parameters =variable virgule parameters | variable ;
+param=parameters | epsilon;
+function =type identif cg [premier]:param cd
+[second]:param pv
+instructions;
+
+main = main param pv
+instructions;
+
+instructions=acg instruction* acd;
 
 
+
+affec=identif egale [premier]:exp op [second]:exp;
+
+condition=si expression alors instructions | si expression alors instructions sinon instructions;
+
+expression= expression opl expression | identif | comparaison;
+
+comparaison=identif cmp identif;
