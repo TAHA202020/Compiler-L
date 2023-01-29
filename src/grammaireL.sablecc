@@ -8,56 +8,38 @@ alpha = [lettre + ['_' + '$']];
 alphanum = [lettre + chiffre];
 
 Tokens
+
 espaces = (' ' | 13 | 10)+;
 commentaire= '#' [[0 .. 0xffff] - [10 + 13]]* (10 | 13 | 10 13);
 virgule = ',';
-egale='=';
-op='+'|'-'|'*'|'/';
-opl='&'|'|'|'!';
-cmp='<'|'>'|'=';
-epsilon='ε';
-cg='(';
-sinon='sinon';
-cd=')';
-pv=';';
-acg='{';
-acd='}';
-si='si';
-alors='alors';
-main='main()';
 nombre = chiffre+;
-type ='entier' | 'bool';
 identif = alpha alphanum*;
+plus='+';
+minus='-';
+mult='*';
+div='/';
+lp='(';
+rp=')';
+equal='=';
+startfunc='{';
+endfunc='}';
+virgul=',';
+pv=';';
+return='return';
+entier='entier';
+boolean='bool';
+mainfunc='main()';
 Ignored Tokens
 
 espaces, commentaire;
 
 Productions
-
-
-variable= type identif;
-
-exp=identif | nombre;
-
-programme =function programme | main;
-
-parameters =variable virgule parameters | variable ;
-param=parameters | epsilon;
-function =type identif cg [premier]:param cd
-[second]:param pv
-instructions;
-
-main = main param pv
-instructions;
-
-instructions=acg instruction* acd;
-
-
-
-affec=identif egale [premier]:exp op [second]:exp;
-
-condition=si expression alors instructions | si expression alors instructions sinon instructions;
-
-expression= expression opl expression | identif | comparaison;
-
-comparaison=identif cmp identif;
+type={entier}entier|{boolean} boolean ;
+op={plus}plus|{minus}minus|{mult}mult|{div}div;
+declare={equalanother}type [first]:identif equal [second]:identif|{optwo}type [first]:identif equal [second]:identif op [third]:identif;
+parameter= type identif;
+parameters = {multiple} parameter virgul parameters |{single} parameter;
+programme ={default} function programme | {main}main;
+main = mainfunc parameters? startfunc instruction* endfunc;
+instruction=declare;
+function=type [first]:identif lp [funcparams]:parameters? rp [declaration]:parameters? startfunc instruction* return [second]:identif pv endfunc;
