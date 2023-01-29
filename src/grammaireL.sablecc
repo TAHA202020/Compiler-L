@@ -25,21 +25,51 @@ startfunc='{';
 endfunc='}';
 virgul=',';
 pv=';';
+true='true';
+false='false';
 return='return';
 entier='entier';
 boolean='bool';
 mainfunc='main()';
+si='si';
+and='&';
+or='|';
+not='!';
+bigger='>';
+smaller='<';
+notequal='!=';
+alors='alors';
+else='sinon';
+while='tantque';
+do='faire';
+read='lire();';
+write='ecrire';
 Ignored Tokens
 
 espaces, commentaire;
 
 Productions
+realvalues={false}false|{true}true|{nombre}nombre;
+log={or}or|{and}and;
+cmp={bigger}bigger |{smaller}smaller | {notequal}notequal | {equal}equal;
 type={entier}entier|{boolean} boolean ;
 op={plus}plus|{minus}minus|{mult}mult|{div}div;
-declare={equalanother}type [first]:identif equal [second]:identif|{optwo}type [first]:identif equal [second]:identif op [third]:identif;
+booleans={true}true|{false}false;
+nparameters={identif}identif |{nombre} nombre |{booleans}booleans;
+nparam={multiparam} nparameters virgul nparam |{singleparam} nparameters;
+var={callfunc} identif lp nparam? rp|{identif}identif |{nombre}nombre;
+realvar={multivar} var op realvar |{singlevar} var;
+affectation=identif equal realvar;
+condition = si lp expression rp alors startfunc instruction* endfunc elsecondition?;
+loop=while lp expression rp do startfunc instruction* endfunc;
+
+
+elsecondition=else startfunc instruction* endfunc;
+expression={multiple}singleexpression log expression |{single}singleexpression;
+singleexpression={identifidentif}[first]:identif cmp [second]:identif |{identifrealvalue}identif cmp realvalues|{realvalueidentif}realvalues cmp identif;
 parameter= type identif;
 parameters = {multiple} parameter virgul parameters |{single} parameter;
 programme ={default} function programme | {main}main;
 main = mainfunc parameters? startfunc instruction* endfunc;
-instruction=declare;
+instruction={affectation}affectation|{condition}condition|{callfunc} identif lp nparam? rp pv|{read} read|{write} write lp identif rp pv;
 function=type [first]:identif lp [funcparams]:parameters? rp [declaration]:parameters? startfunc instruction* return [second]:identif pv endfunc;
