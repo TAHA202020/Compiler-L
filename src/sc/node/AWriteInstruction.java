@@ -9,7 +9,7 @@ public final class AWriteInstruction extends PInstruction
 {
     private TWrite _write_;
     private TLp _lp_;
-    private TIdentif _identif_;
+    private PValue _value_;
     private TRp _rp_;
     private TPv _pv_;
 
@@ -21,7 +21,7 @@ public final class AWriteInstruction extends PInstruction
     public AWriteInstruction(
         @SuppressWarnings("hiding") TWrite _write_,
         @SuppressWarnings("hiding") TLp _lp_,
-        @SuppressWarnings("hiding") TIdentif _identif_,
+        @SuppressWarnings("hiding") PValue _value_,
         @SuppressWarnings("hiding") TRp _rp_,
         @SuppressWarnings("hiding") TPv _pv_)
     {
@@ -30,7 +30,7 @@ public final class AWriteInstruction extends PInstruction
 
         setLp(_lp_);
 
-        setIdentif(_identif_);
+        setValue(_value_);
 
         setRp(_rp_);
 
@@ -44,7 +44,7 @@ public final class AWriteInstruction extends PInstruction
         return new AWriteInstruction(
             cloneNode(this._write_),
             cloneNode(this._lp_),
-            cloneNode(this._identif_),
+            cloneNode(this._value_),
             cloneNode(this._rp_),
             cloneNode(this._pv_));
     }
@@ -105,16 +105,16 @@ public final class AWriteInstruction extends PInstruction
         this._lp_ = node;
     }
 
-    public TIdentif getIdentif()
+    public PValue getValue()
     {
-        return this._identif_;
+        return this._value_;
     }
 
-    public void setIdentif(TIdentif node)
+    public void setValue(PValue node)
     {
-        if(this._identif_ != null)
+        if(this._value_ != null)
         {
-            this._identif_.parent(null);
+            this._value_.parent(null);
         }
 
         if(node != null)
@@ -127,7 +127,7 @@ public final class AWriteInstruction extends PInstruction
             node.parent(this);
         }
 
-        this._identif_ = node;
+        this._value_ = node;
     }
 
     public TRp getRp()
@@ -186,7 +186,7 @@ public final class AWriteInstruction extends PInstruction
         return ""
             + toString(this._write_)
             + toString(this._lp_)
-            + toString(this._identif_)
+            + toString(this._value_)
             + toString(this._rp_)
             + toString(this._pv_);
     }
@@ -207,9 +207,9 @@ public final class AWriteInstruction extends PInstruction
             return;
         }
 
-        if(this._identif_ == child)
+        if(this._value_ == child)
         {
-            this._identif_ = null;
+            this._value_ = null;
             return;
         }
 
@@ -244,9 +244,9 @@ public final class AWriteInstruction extends PInstruction
             return;
         }
 
-        if(this._identif_ == oldChild)
+        if(this._value_ == oldChild)
         {
-            setIdentif((TIdentif) newChild);
+            setValue((PValue) newChild);
             return;
         }
 

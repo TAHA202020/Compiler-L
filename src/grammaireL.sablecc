@@ -94,7 +94,7 @@ programme ={default} function programme | {main}main;
 main = mainfunc parameters? startfunc instruction* endfunc;
 
 
-instruction={affectation}affectation|{condition}condition|{callfunc} identif lp nparam? rp pv|{read} identif equal read|{write} write lp value rp pv;
+instruction={affectation}affectation|{condition}condition|{callfunc} identif lp nparam? rp pv|{read} identif equal read|{write} write lp value rp pv ;
 
 
-function=type [first]:identif lp [funcparams]:parameters? rp [declaration]:parameters? startfunc instruction* return [second]:identif pv endfunc;
+function=type identif [firstlp]:lp [funcparams]:parameters? [firstrp]:rp [declaration]:parameters? startfunc instruction* return [secondlp]:lp value [secondrp]:rp pv endfunc;

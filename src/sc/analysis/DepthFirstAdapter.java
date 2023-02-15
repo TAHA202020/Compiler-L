@@ -1283,6 +1283,14 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseAReadInstruction(AReadInstruction node)
     {
         inAReadInstruction(node);
+        if(node.getIdentif() != null)
+        {
+            node.getIdentif().apply(this);
+        }
+        if(node.getEqual() != null)
+        {
+            node.getEqual().apply(this);
+        }
         if(node.getRead() != null)
         {
             node.getRead().apply(this);
@@ -1312,9 +1320,9 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getLp().apply(this);
         }
-        if(node.getIdentif() != null)
+        if(node.getValue() != null)
         {
-            node.getIdentif().apply(this);
+            node.getValue().apply(this);
         }
         if(node.getRp() != null)
         {
@@ -1345,21 +1353,21 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getType().apply(this);
         }
-        if(node.getFirst() != null)
+        if(node.getIdentif() != null)
         {
-            node.getFirst().apply(this);
+            node.getIdentif().apply(this);
         }
-        if(node.getLp() != null)
+        if(node.getFirstlp() != null)
         {
-            node.getLp().apply(this);
+            node.getFirstlp().apply(this);
         }
         if(node.getFuncparams() != null)
         {
             node.getFuncparams().apply(this);
         }
-        if(node.getRp() != null)
+        if(node.getFirstrp() != null)
         {
-            node.getRp().apply(this);
+            node.getFirstrp().apply(this);
         }
         if(node.getDeclaration() != null)
         {
@@ -1380,9 +1388,17 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getReturn().apply(this);
         }
-        if(node.getSecond() != null)
+        if(node.getSecondlp() != null)
         {
-            node.getSecond().apply(this);
+            node.getSecondlp().apply(this);
+        }
+        if(node.getValue() != null)
+        {
+            node.getValue().apply(this);
+        }
+        if(node.getSecondrp() != null)
+        {
+            node.getSecondrp().apply(this);
         }
         if(node.getPv() != null)
         {

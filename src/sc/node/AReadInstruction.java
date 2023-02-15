@@ -7,6 +7,8 @@ import sc.analysis.*;
 @SuppressWarnings("nls")
 public final class AReadInstruction extends PInstruction
 {
+    private TIdentif _identif_;
+    private TEqual _equal_;
     private TRead _read_;
 
     public AReadInstruction()
@@ -15,9 +17,15 @@ public final class AReadInstruction extends PInstruction
     }
 
     public AReadInstruction(
+        @SuppressWarnings("hiding") TIdentif _identif_,
+        @SuppressWarnings("hiding") TEqual _equal_,
         @SuppressWarnings("hiding") TRead _read_)
     {
         // Constructor
+        setIdentif(_identif_);
+
+        setEqual(_equal_);
+
         setRead(_read_);
 
     }
@@ -26,6 +34,8 @@ public final class AReadInstruction extends PInstruction
     public Object clone()
     {
         return new AReadInstruction(
+            cloneNode(this._identif_),
+            cloneNode(this._equal_),
             cloneNode(this._read_));
     }
 
@@ -33,6 +43,56 @@ public final class AReadInstruction extends PInstruction
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAReadInstruction(this);
+    }
+
+    public TIdentif getIdentif()
+    {
+        return this._identif_;
+    }
+
+    public void setIdentif(TIdentif node)
+    {
+        if(this._identif_ != null)
+        {
+            this._identif_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._identif_ = node;
+    }
+
+    public TEqual getEqual()
+    {
+        return this._equal_;
+    }
+
+    public void setEqual(TEqual node)
+    {
+        if(this._equal_ != null)
+        {
+            this._equal_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._equal_ = node;
     }
 
     public TRead getRead()
@@ -64,6 +124,8 @@ public final class AReadInstruction extends PInstruction
     public String toString()
     {
         return ""
+            + toString(this._identif_)
+            + toString(this._equal_)
             + toString(this._read_);
     }
 
@@ -71,6 +133,18 @@ public final class AReadInstruction extends PInstruction
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
+        if(this._identif_ == child)
+        {
+            this._identif_ = null;
+            return;
+        }
+
+        if(this._equal_ == child)
+        {
+            this._equal_ = null;
+            return;
+        }
+
         if(this._read_ == child)
         {
             this._read_ = null;
@@ -84,6 +158,18 @@ public final class AReadInstruction extends PInstruction
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
+        if(this._identif_ == oldChild)
+        {
+            setIdentif((TIdentif) newChild);
+            return;
+        }
+
+        if(this._equal_ == oldChild)
+        {
+            setEqual((TEqual) newChild);
+            return;
+        }
+
         if(this._read_ == oldChild)
         {
             setRead((TRead) newChild);

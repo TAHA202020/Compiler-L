@@ -9,15 +9,17 @@ import sc.analysis.*;
 public final class AFunction extends PFunction
 {
     private PType _type_;
-    private TIdentif _first_;
-    private TLp _lp_;
+    private TIdentif _identif_;
+    private TLp _firstlp_;
     private PParameters _funcparams_;
-    private TRp _rp_;
+    private TRp _firstrp_;
     private PParameters _declaration_;
     private TStartfunc _startfunc_;
     private final LinkedList<PInstruction> _instruction_ = new LinkedList<PInstruction>();
     private TReturn _return_;
-    private TIdentif _second_;
+    private TLp _secondlp_;
+    private PValue _value_;
+    private TRp _secondrp_;
     private TPv _pv_;
     private TEndfunc _endfunc_;
 
@@ -28,28 +30,30 @@ public final class AFunction extends PFunction
 
     public AFunction(
         @SuppressWarnings("hiding") PType _type_,
-        @SuppressWarnings("hiding") TIdentif _first_,
-        @SuppressWarnings("hiding") TLp _lp_,
+        @SuppressWarnings("hiding") TIdentif _identif_,
+        @SuppressWarnings("hiding") TLp _firstlp_,
         @SuppressWarnings("hiding") PParameters _funcparams_,
-        @SuppressWarnings("hiding") TRp _rp_,
+        @SuppressWarnings("hiding") TRp _firstrp_,
         @SuppressWarnings("hiding") PParameters _declaration_,
         @SuppressWarnings("hiding") TStartfunc _startfunc_,
         @SuppressWarnings("hiding") List<?> _instruction_,
         @SuppressWarnings("hiding") TReturn _return_,
-        @SuppressWarnings("hiding") TIdentif _second_,
+        @SuppressWarnings("hiding") TLp _secondlp_,
+        @SuppressWarnings("hiding") PValue _value_,
+        @SuppressWarnings("hiding") TRp _secondrp_,
         @SuppressWarnings("hiding") TPv _pv_,
         @SuppressWarnings("hiding") TEndfunc _endfunc_)
     {
         // Constructor
         setType(_type_);
 
-        setFirst(_first_);
+        setIdentif(_identif_);
 
-        setLp(_lp_);
+        setFirstlp(_firstlp_);
 
         setFuncparams(_funcparams_);
 
-        setRp(_rp_);
+        setFirstrp(_firstrp_);
 
         setDeclaration(_declaration_);
 
@@ -59,7 +63,11 @@ public final class AFunction extends PFunction
 
         setReturn(_return_);
 
-        setSecond(_second_);
+        setSecondlp(_secondlp_);
+
+        setValue(_value_);
+
+        setSecondrp(_secondrp_);
 
         setPv(_pv_);
 
@@ -72,15 +80,17 @@ public final class AFunction extends PFunction
     {
         return new AFunction(
             cloneNode(this._type_),
-            cloneNode(this._first_),
-            cloneNode(this._lp_),
+            cloneNode(this._identif_),
+            cloneNode(this._firstlp_),
             cloneNode(this._funcparams_),
-            cloneNode(this._rp_),
+            cloneNode(this._firstrp_),
             cloneNode(this._declaration_),
             cloneNode(this._startfunc_),
             cloneList(this._instruction_),
             cloneNode(this._return_),
-            cloneNode(this._second_),
+            cloneNode(this._secondlp_),
+            cloneNode(this._value_),
+            cloneNode(this._secondrp_),
             cloneNode(this._pv_),
             cloneNode(this._endfunc_));
     }
@@ -116,16 +126,16 @@ public final class AFunction extends PFunction
         this._type_ = node;
     }
 
-    public TIdentif getFirst()
+    public TIdentif getIdentif()
     {
-        return this._first_;
+        return this._identif_;
     }
 
-    public void setFirst(TIdentif node)
+    public void setIdentif(TIdentif node)
     {
-        if(this._first_ != null)
+        if(this._identif_ != null)
         {
-            this._first_.parent(null);
+            this._identif_.parent(null);
         }
 
         if(node != null)
@@ -138,19 +148,19 @@ public final class AFunction extends PFunction
             node.parent(this);
         }
 
-        this._first_ = node;
+        this._identif_ = node;
     }
 
-    public TLp getLp()
+    public TLp getFirstlp()
     {
-        return this._lp_;
+        return this._firstlp_;
     }
 
-    public void setLp(TLp node)
+    public void setFirstlp(TLp node)
     {
-        if(this._lp_ != null)
+        if(this._firstlp_ != null)
         {
-            this._lp_.parent(null);
+            this._firstlp_.parent(null);
         }
 
         if(node != null)
@@ -163,7 +173,7 @@ public final class AFunction extends PFunction
             node.parent(this);
         }
 
-        this._lp_ = node;
+        this._firstlp_ = node;
     }
 
     public PParameters getFuncparams()
@@ -191,16 +201,16 @@ public final class AFunction extends PFunction
         this._funcparams_ = node;
     }
 
-    public TRp getRp()
+    public TRp getFirstrp()
     {
-        return this._rp_;
+        return this._firstrp_;
     }
 
-    public void setRp(TRp node)
+    public void setFirstrp(TRp node)
     {
-        if(this._rp_ != null)
+        if(this._firstrp_ != null)
         {
-            this._rp_.parent(null);
+            this._firstrp_.parent(null);
         }
 
         if(node != null)
@@ -213,7 +223,7 @@ public final class AFunction extends PFunction
             node.parent(this);
         }
 
-        this._rp_ = node;
+        this._firstrp_ = node;
     }
 
     public PParameters getDeclaration()
@@ -317,16 +327,16 @@ public final class AFunction extends PFunction
         this._return_ = node;
     }
 
-    public TIdentif getSecond()
+    public TLp getSecondlp()
     {
-        return this._second_;
+        return this._secondlp_;
     }
 
-    public void setSecond(TIdentif node)
+    public void setSecondlp(TLp node)
     {
-        if(this._second_ != null)
+        if(this._secondlp_ != null)
         {
-            this._second_.parent(null);
+            this._secondlp_.parent(null);
         }
 
         if(node != null)
@@ -339,7 +349,57 @@ public final class AFunction extends PFunction
             node.parent(this);
         }
 
-        this._second_ = node;
+        this._secondlp_ = node;
+    }
+
+    public PValue getValue()
+    {
+        return this._value_;
+    }
+
+    public void setValue(PValue node)
+    {
+        if(this._value_ != null)
+        {
+            this._value_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._value_ = node;
+    }
+
+    public TRp getSecondrp()
+    {
+        return this._secondrp_;
+    }
+
+    public void setSecondrp(TRp node)
+    {
+        if(this._secondrp_ != null)
+        {
+            this._secondrp_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._secondrp_ = node;
     }
 
     public TPv getPv()
@@ -397,15 +457,17 @@ public final class AFunction extends PFunction
     {
         return ""
             + toString(this._type_)
-            + toString(this._first_)
-            + toString(this._lp_)
+            + toString(this._identif_)
+            + toString(this._firstlp_)
             + toString(this._funcparams_)
-            + toString(this._rp_)
+            + toString(this._firstrp_)
             + toString(this._declaration_)
             + toString(this._startfunc_)
             + toString(this._instruction_)
             + toString(this._return_)
-            + toString(this._second_)
+            + toString(this._secondlp_)
+            + toString(this._value_)
+            + toString(this._secondrp_)
             + toString(this._pv_)
             + toString(this._endfunc_);
     }
@@ -420,15 +482,15 @@ public final class AFunction extends PFunction
             return;
         }
 
-        if(this._first_ == child)
+        if(this._identif_ == child)
         {
-            this._first_ = null;
+            this._identif_ = null;
             return;
         }
 
-        if(this._lp_ == child)
+        if(this._firstlp_ == child)
         {
-            this._lp_ = null;
+            this._firstlp_ = null;
             return;
         }
 
@@ -438,9 +500,9 @@ public final class AFunction extends PFunction
             return;
         }
 
-        if(this._rp_ == child)
+        if(this._firstrp_ == child)
         {
-            this._rp_ = null;
+            this._firstrp_ = null;
             return;
         }
 
@@ -467,9 +529,21 @@ public final class AFunction extends PFunction
             return;
         }
 
-        if(this._second_ == child)
+        if(this._secondlp_ == child)
         {
-            this._second_ = null;
+            this._secondlp_ = null;
+            return;
+        }
+
+        if(this._value_ == child)
+        {
+            this._value_ = null;
+            return;
+        }
+
+        if(this._secondrp_ == child)
+        {
+            this._secondrp_ = null;
             return;
         }
 
@@ -498,15 +572,15 @@ public final class AFunction extends PFunction
             return;
         }
 
-        if(this._first_ == oldChild)
+        if(this._identif_ == oldChild)
         {
-            setFirst((TIdentif) newChild);
+            setIdentif((TIdentif) newChild);
             return;
         }
 
-        if(this._lp_ == oldChild)
+        if(this._firstlp_ == oldChild)
         {
-            setLp((TLp) newChild);
+            setFirstlp((TLp) newChild);
             return;
         }
 
@@ -516,9 +590,9 @@ public final class AFunction extends PFunction
             return;
         }
 
-        if(this._rp_ == oldChild)
+        if(this._firstrp_ == oldChild)
         {
-            setRp((TRp) newChild);
+            setFirstrp((TRp) newChild);
             return;
         }
 
@@ -558,9 +632,21 @@ public final class AFunction extends PFunction
             return;
         }
 
-        if(this._second_ == oldChild)
+        if(this._secondlp_ == oldChild)
         {
-            setSecond((TIdentif) newChild);
+            setSecondlp((TLp) newChild);
+            return;
+        }
+
+        if(this._value_ == oldChild)
+        {
+            setValue((PValue) newChild);
+            return;
+        }
+
+        if(this._secondrp_ == oldChild)
+        {
+            setSecondrp((TRp) newChild);
             return;
         }
 

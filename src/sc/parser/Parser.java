@@ -2159,14 +2159,20 @@ public class Parser
     {
         @SuppressWarnings("hiding") ArrayList<Object> nodeList = new ArrayList<Object>();
 
+        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList3 = pop();
+        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList2 = pop();
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList1 = pop();
         PInstruction pinstructionNode1;
         {
             // Block
-        TRead treadNode2;
-        treadNode2 = (TRead)nodeArrayList1.get(0);
+        TIdentif tidentifNode2;
+        TEqual tequalNode3;
+        TRead treadNode4;
+        tidentifNode2 = (TIdentif)nodeArrayList1.get(0);
+        tequalNode3 = (TEqual)nodeArrayList2.get(0);
+        treadNode4 = (TRead)nodeArrayList3.get(0);
 
-        pinstructionNode1 = new AReadInstruction(treadNode2);
+        pinstructionNode1 = new AReadInstruction(tidentifNode2, tequalNode3, treadNode4);
         }
 	nodeList.add(pinstructionNode1);
         return nodeList;
@@ -2189,16 +2195,16 @@ public class Parser
             // Block
         TWrite twriteNode2;
         TLp tlpNode3;
-        TIdentif tidentifNode4;
+        PValue pvalueNode4;
         TRp trpNode5;
         TPv tpvNode6;
         twriteNode2 = (TWrite)nodeArrayList1.get(0);
         tlpNode3 = (TLp)nodeArrayList2.get(0);
-        tidentifNode4 = (TIdentif)nodeArrayList3.get(0);
+        pvalueNode4 = (PValue)nodeArrayList3.get(0);
         trpNode5 = (TRp)nodeArrayList4.get(0);
         tpvNode6 = (TPv)nodeArrayList5.get(0);
 
-        pinstructionNode1 = new AWriteInstruction(twriteNode2, tlpNode3, tidentifNode4, trpNode5, tpvNode6);
+        pinstructionNode1 = new AWriteInstruction(twriteNode2, tlpNode3, pvalueNode4, trpNode5, tpvNode6);
         }
 	nodeList.add(pinstructionNode1);
         return nodeList;
@@ -2211,6 +2217,8 @@ public class Parser
     {
         @SuppressWarnings("hiding") ArrayList<Object> nodeList = new ArrayList<Object>();
 
+        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList11 = pop();
+        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList10 = pop();
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList9 = pop();
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList8 = pop();
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList7 = pop();
@@ -2232,9 +2240,11 @@ public class Parser
         TStartfunc tstartfuncNode8;
         LinkedList<Object> listNode9 = new LinkedList<Object>();
         TReturn treturnNode10;
-        TIdentif tidentifNode11;
-        TPv tpvNode12;
-        TEndfunc tendfuncNode13;
+        TLp tlpNode11;
+        PValue pvalueNode12;
+        TRp trpNode13;
+        TPv tpvNode14;
+        TEndfunc tendfuncNode15;
         ptypeNode2 = (PType)nodeArrayList1.get(0);
         tidentifNode3 = (TIdentif)nodeArrayList2.get(0);
         tlpNode4 = (TLp)nodeArrayList3.get(0);
@@ -2244,11 +2254,13 @@ public class Parser
             // Block
         }
         treturnNode10 = (TReturn)nodeArrayList6.get(0);
-        tidentifNode11 = (TIdentif)nodeArrayList7.get(0);
-        tpvNode12 = (TPv)nodeArrayList8.get(0);
-        tendfuncNode13 = (TEndfunc)nodeArrayList9.get(0);
+        tlpNode11 = (TLp)nodeArrayList7.get(0);
+        pvalueNode12 = (PValue)nodeArrayList8.get(0);
+        trpNode13 = (TRp)nodeArrayList9.get(0);
+        tpvNode14 = (TPv)nodeArrayList10.get(0);
+        tendfuncNode15 = (TEndfunc)nodeArrayList11.get(0);
 
-        pfunctionNode1 = new AFunction(ptypeNode2, tidentifNode3, tlpNode4, null, trpNode6, null, tstartfuncNode8, listNode9, treturnNode10, tidentifNode11, tpvNode12, tendfuncNode13);
+        pfunctionNode1 = new AFunction(ptypeNode2, tidentifNode3, tlpNode4, null, trpNode6, null, tstartfuncNode8, listNode9, treturnNode10, tlpNode11, pvalueNode12, trpNode13, tpvNode14, tendfuncNode15);
         }
 	nodeList.add(pfunctionNode1);
         return nodeList;
@@ -2261,6 +2273,8 @@ public class Parser
     {
         @SuppressWarnings("hiding") ArrayList<Object> nodeList = new ArrayList<Object>();
 
+        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList12 = pop();
+        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList11 = pop();
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList10 = pop();
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList9 = pop();
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList8 = pop();
@@ -2283,9 +2297,11 @@ public class Parser
         TStartfunc tstartfuncNode8;
         LinkedList<Object> listNode9 = new LinkedList<Object>();
         TReturn treturnNode10;
-        TIdentif tidentifNode11;
-        TPv tpvNode12;
-        TEndfunc tendfuncNode13;
+        TLp tlpNode11;
+        PValue pvalueNode12;
+        TRp trpNode13;
+        TPv tpvNode14;
+        TEndfunc tendfuncNode15;
         ptypeNode2 = (PType)nodeArrayList1.get(0);
         tidentifNode3 = (TIdentif)nodeArrayList2.get(0);
         tlpNode4 = (TLp)nodeArrayList3.get(0);
@@ -2296,11 +2312,13 @@ public class Parser
             // Block
         }
         treturnNode10 = (TReturn)nodeArrayList7.get(0);
-        tidentifNode11 = (TIdentif)nodeArrayList8.get(0);
-        tpvNode12 = (TPv)nodeArrayList9.get(0);
-        tendfuncNode13 = (TEndfunc)nodeArrayList10.get(0);
+        tlpNode11 = (TLp)nodeArrayList8.get(0);
+        pvalueNode12 = (PValue)nodeArrayList9.get(0);
+        trpNode13 = (TRp)nodeArrayList10.get(0);
+        tpvNode14 = (TPv)nodeArrayList11.get(0);
+        tendfuncNode15 = (TEndfunc)nodeArrayList12.get(0);
 
-        pfunctionNode1 = new AFunction(ptypeNode2, tidentifNode3, tlpNode4, pparametersNode5, trpNode6, null, tstartfuncNode8, listNode9, treturnNode10, tidentifNode11, tpvNode12, tendfuncNode13);
+        pfunctionNode1 = new AFunction(ptypeNode2, tidentifNode3, tlpNode4, pparametersNode5, trpNode6, null, tstartfuncNode8, listNode9, treturnNode10, tlpNode11, pvalueNode12, trpNode13, tpvNode14, tendfuncNode15);
         }
 	nodeList.add(pfunctionNode1);
         return nodeList;
@@ -2313,6 +2331,8 @@ public class Parser
     {
         @SuppressWarnings("hiding") ArrayList<Object> nodeList = new ArrayList<Object>();
 
+        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList12 = pop();
+        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList11 = pop();
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList10 = pop();
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList9 = pop();
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList8 = pop();
@@ -2335,9 +2355,11 @@ public class Parser
         TStartfunc tstartfuncNode8;
         LinkedList<Object> listNode9 = new LinkedList<Object>();
         TReturn treturnNode10;
-        TIdentif tidentifNode11;
-        TPv tpvNode12;
-        TEndfunc tendfuncNode13;
+        TLp tlpNode11;
+        PValue pvalueNode12;
+        TRp trpNode13;
+        TPv tpvNode14;
+        TEndfunc tendfuncNode15;
         ptypeNode2 = (PType)nodeArrayList1.get(0);
         tidentifNode3 = (TIdentif)nodeArrayList2.get(0);
         tlpNode4 = (TLp)nodeArrayList3.get(0);
@@ -2348,11 +2370,13 @@ public class Parser
             // Block
         }
         treturnNode10 = (TReturn)nodeArrayList7.get(0);
-        tidentifNode11 = (TIdentif)nodeArrayList8.get(0);
-        tpvNode12 = (TPv)nodeArrayList9.get(0);
-        tendfuncNode13 = (TEndfunc)nodeArrayList10.get(0);
+        tlpNode11 = (TLp)nodeArrayList8.get(0);
+        pvalueNode12 = (PValue)nodeArrayList9.get(0);
+        trpNode13 = (TRp)nodeArrayList10.get(0);
+        tpvNode14 = (TPv)nodeArrayList11.get(0);
+        tendfuncNode15 = (TEndfunc)nodeArrayList12.get(0);
 
-        pfunctionNode1 = new AFunction(ptypeNode2, tidentifNode3, tlpNode4, null, trpNode6, pparametersNode7, tstartfuncNode8, listNode9, treturnNode10, tidentifNode11, tpvNode12, tendfuncNode13);
+        pfunctionNode1 = new AFunction(ptypeNode2, tidentifNode3, tlpNode4, null, trpNode6, pparametersNode7, tstartfuncNode8, listNode9, treturnNode10, tlpNode11, pvalueNode12, trpNode13, tpvNode14, tendfuncNode15);
         }
 	nodeList.add(pfunctionNode1);
         return nodeList;
@@ -2365,6 +2389,8 @@ public class Parser
     {
         @SuppressWarnings("hiding") ArrayList<Object> nodeList = new ArrayList<Object>();
 
+        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList13 = pop();
+        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList12 = pop();
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList11 = pop();
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList10 = pop();
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList9 = pop();
@@ -2388,9 +2414,11 @@ public class Parser
         TStartfunc tstartfuncNode8;
         LinkedList<Object> listNode9 = new LinkedList<Object>();
         TReturn treturnNode10;
-        TIdentif tidentifNode11;
-        TPv tpvNode12;
-        TEndfunc tendfuncNode13;
+        TLp tlpNode11;
+        PValue pvalueNode12;
+        TRp trpNode13;
+        TPv tpvNode14;
+        TEndfunc tendfuncNode15;
         ptypeNode2 = (PType)nodeArrayList1.get(0);
         tidentifNode3 = (TIdentif)nodeArrayList2.get(0);
         tlpNode4 = (TLp)nodeArrayList3.get(0);
@@ -2402,11 +2430,13 @@ public class Parser
             // Block
         }
         treturnNode10 = (TReturn)nodeArrayList8.get(0);
-        tidentifNode11 = (TIdentif)nodeArrayList9.get(0);
-        tpvNode12 = (TPv)nodeArrayList10.get(0);
-        tendfuncNode13 = (TEndfunc)nodeArrayList11.get(0);
+        tlpNode11 = (TLp)nodeArrayList9.get(0);
+        pvalueNode12 = (PValue)nodeArrayList10.get(0);
+        trpNode13 = (TRp)nodeArrayList11.get(0);
+        tpvNode14 = (TPv)nodeArrayList12.get(0);
+        tendfuncNode15 = (TEndfunc)nodeArrayList13.get(0);
 
-        pfunctionNode1 = new AFunction(ptypeNode2, tidentifNode3, tlpNode4, pparametersNode5, trpNode6, pparametersNode7, tstartfuncNode8, listNode9, treturnNode10, tidentifNode11, tpvNode12, tendfuncNode13);
+        pfunctionNode1 = new AFunction(ptypeNode2, tidentifNode3, tlpNode4, pparametersNode5, trpNode6, pparametersNode7, tstartfuncNode8, listNode9, treturnNode10, tlpNode11, pvalueNode12, trpNode13, tpvNode14, tendfuncNode15);
         }
 	nodeList.add(pfunctionNode1);
         return nodeList;
@@ -2419,6 +2449,8 @@ public class Parser
     {
         @SuppressWarnings("hiding") ArrayList<Object> nodeList = new ArrayList<Object>();
 
+        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList12 = pop();
+        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList11 = pop();
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList10 = pop();
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList9 = pop();
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList8 = pop();
@@ -2441,9 +2473,11 @@ public class Parser
         TStartfunc tstartfuncNode8;
         LinkedList<Object> listNode10 = new LinkedList<Object>();
         TReturn treturnNode11;
-        TIdentif tidentifNode12;
-        TPv tpvNode13;
-        TEndfunc tendfuncNode14;
+        TLp tlpNode12;
+        PValue pvalueNode13;
+        TRp trpNode14;
+        TPv tpvNode15;
+        TEndfunc tendfuncNode16;
         ptypeNode2 = (PType)nodeArrayList1.get(0);
         tidentifNode3 = (TIdentif)nodeArrayList2.get(0);
         tlpNode4 = (TLp)nodeArrayList3.get(0);
@@ -2459,11 +2493,13 @@ public class Parser
 	}
         }
         treturnNode11 = (TReturn)nodeArrayList7.get(0);
-        tidentifNode12 = (TIdentif)nodeArrayList8.get(0);
-        tpvNode13 = (TPv)nodeArrayList9.get(0);
-        tendfuncNode14 = (TEndfunc)nodeArrayList10.get(0);
+        tlpNode12 = (TLp)nodeArrayList8.get(0);
+        pvalueNode13 = (PValue)nodeArrayList9.get(0);
+        trpNode14 = (TRp)nodeArrayList10.get(0);
+        tpvNode15 = (TPv)nodeArrayList11.get(0);
+        tendfuncNode16 = (TEndfunc)nodeArrayList12.get(0);
 
-        pfunctionNode1 = new AFunction(ptypeNode2, tidentifNode3, tlpNode4, null, trpNode6, null, tstartfuncNode8, listNode10, treturnNode11, tidentifNode12, tpvNode13, tendfuncNode14);
+        pfunctionNode1 = new AFunction(ptypeNode2, tidentifNode3, tlpNode4, null, trpNode6, null, tstartfuncNode8, listNode10, treturnNode11, tlpNode12, pvalueNode13, trpNode14, tpvNode15, tendfuncNode16);
         }
 	nodeList.add(pfunctionNode1);
         return nodeList;
@@ -2476,6 +2512,8 @@ public class Parser
     {
         @SuppressWarnings("hiding") ArrayList<Object> nodeList = new ArrayList<Object>();
 
+        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList13 = pop();
+        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList12 = pop();
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList11 = pop();
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList10 = pop();
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList9 = pop();
@@ -2499,9 +2537,11 @@ public class Parser
         TStartfunc tstartfuncNode8;
         LinkedList<Object> listNode10 = new LinkedList<Object>();
         TReturn treturnNode11;
-        TIdentif tidentifNode12;
-        TPv tpvNode13;
-        TEndfunc tendfuncNode14;
+        TLp tlpNode12;
+        PValue pvalueNode13;
+        TRp trpNode14;
+        TPv tpvNode15;
+        TEndfunc tendfuncNode16;
         ptypeNode2 = (PType)nodeArrayList1.get(0);
         tidentifNode3 = (TIdentif)nodeArrayList2.get(0);
         tlpNode4 = (TLp)nodeArrayList3.get(0);
@@ -2518,11 +2558,13 @@ public class Parser
 	}
         }
         treturnNode11 = (TReturn)nodeArrayList8.get(0);
-        tidentifNode12 = (TIdentif)nodeArrayList9.get(0);
-        tpvNode13 = (TPv)nodeArrayList10.get(0);
-        tendfuncNode14 = (TEndfunc)nodeArrayList11.get(0);
+        tlpNode12 = (TLp)nodeArrayList9.get(0);
+        pvalueNode13 = (PValue)nodeArrayList10.get(0);
+        trpNode14 = (TRp)nodeArrayList11.get(0);
+        tpvNode15 = (TPv)nodeArrayList12.get(0);
+        tendfuncNode16 = (TEndfunc)nodeArrayList13.get(0);
 
-        pfunctionNode1 = new AFunction(ptypeNode2, tidentifNode3, tlpNode4, pparametersNode5, trpNode6, null, tstartfuncNode8, listNode10, treturnNode11, tidentifNode12, tpvNode13, tendfuncNode14);
+        pfunctionNode1 = new AFunction(ptypeNode2, tidentifNode3, tlpNode4, pparametersNode5, trpNode6, null, tstartfuncNode8, listNode10, treturnNode11, tlpNode12, pvalueNode13, trpNode14, tpvNode15, tendfuncNode16);
         }
 	nodeList.add(pfunctionNode1);
         return nodeList;
@@ -2535,6 +2577,8 @@ public class Parser
     {
         @SuppressWarnings("hiding") ArrayList<Object> nodeList = new ArrayList<Object>();
 
+        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList13 = pop();
+        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList12 = pop();
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList11 = pop();
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList10 = pop();
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList9 = pop();
@@ -2558,9 +2602,11 @@ public class Parser
         TStartfunc tstartfuncNode8;
         LinkedList<Object> listNode10 = new LinkedList<Object>();
         TReturn treturnNode11;
-        TIdentif tidentifNode12;
-        TPv tpvNode13;
-        TEndfunc tendfuncNode14;
+        TLp tlpNode12;
+        PValue pvalueNode13;
+        TRp trpNode14;
+        TPv tpvNode15;
+        TEndfunc tendfuncNode16;
         ptypeNode2 = (PType)nodeArrayList1.get(0);
         tidentifNode3 = (TIdentif)nodeArrayList2.get(0);
         tlpNode4 = (TLp)nodeArrayList3.get(0);
@@ -2577,11 +2623,13 @@ public class Parser
 	}
         }
         treturnNode11 = (TReturn)nodeArrayList8.get(0);
-        tidentifNode12 = (TIdentif)nodeArrayList9.get(0);
-        tpvNode13 = (TPv)nodeArrayList10.get(0);
-        tendfuncNode14 = (TEndfunc)nodeArrayList11.get(0);
+        tlpNode12 = (TLp)nodeArrayList9.get(0);
+        pvalueNode13 = (PValue)nodeArrayList10.get(0);
+        trpNode14 = (TRp)nodeArrayList11.get(0);
+        tpvNode15 = (TPv)nodeArrayList12.get(0);
+        tendfuncNode16 = (TEndfunc)nodeArrayList13.get(0);
 
-        pfunctionNode1 = new AFunction(ptypeNode2, tidentifNode3, tlpNode4, null, trpNode6, pparametersNode7, tstartfuncNode8, listNode10, treturnNode11, tidentifNode12, tpvNode13, tendfuncNode14);
+        pfunctionNode1 = new AFunction(ptypeNode2, tidentifNode3, tlpNode4, null, trpNode6, pparametersNode7, tstartfuncNode8, listNode10, treturnNode11, tlpNode12, pvalueNode13, trpNode14, tpvNode15, tendfuncNode16);
         }
 	nodeList.add(pfunctionNode1);
         return nodeList;
@@ -2594,6 +2642,8 @@ public class Parser
     {
         @SuppressWarnings("hiding") ArrayList<Object> nodeList = new ArrayList<Object>();
 
+        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList14 = pop();
+        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList13 = pop();
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList12 = pop();
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList11 = pop();
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList10 = pop();
@@ -2618,9 +2668,11 @@ public class Parser
         TStartfunc tstartfuncNode8;
         LinkedList<Object> listNode10 = new LinkedList<Object>();
         TReturn treturnNode11;
-        TIdentif tidentifNode12;
-        TPv tpvNode13;
-        TEndfunc tendfuncNode14;
+        TLp tlpNode12;
+        PValue pvalueNode13;
+        TRp trpNode14;
+        TPv tpvNode15;
+        TEndfunc tendfuncNode16;
         ptypeNode2 = (PType)nodeArrayList1.get(0);
         tidentifNode3 = (TIdentif)nodeArrayList2.get(0);
         tlpNode4 = (TLp)nodeArrayList3.get(0);
@@ -2638,11 +2690,13 @@ public class Parser
 	}
         }
         treturnNode11 = (TReturn)nodeArrayList9.get(0);
-        tidentifNode12 = (TIdentif)nodeArrayList10.get(0);
-        tpvNode13 = (TPv)nodeArrayList11.get(0);
-        tendfuncNode14 = (TEndfunc)nodeArrayList12.get(0);
+        tlpNode12 = (TLp)nodeArrayList10.get(0);
+        pvalueNode13 = (PValue)nodeArrayList11.get(0);
+        trpNode14 = (TRp)nodeArrayList12.get(0);
+        tpvNode15 = (TPv)nodeArrayList13.get(0);
+        tendfuncNode16 = (TEndfunc)nodeArrayList14.get(0);
 
-        pfunctionNode1 = new AFunction(ptypeNode2, tidentifNode3, tlpNode4, pparametersNode5, trpNode6, pparametersNode7, tstartfuncNode8, listNode10, treturnNode11, tidentifNode12, tpvNode13, tendfuncNode14);
+        pfunctionNode1 = new AFunction(ptypeNode2, tidentifNode3, tlpNode4, pparametersNode5, trpNode6, pparametersNode7, tstartfuncNode8, listNode10, treturnNode11, tlpNode12, pvalueNode13, trpNode14, tpvNode15, tendfuncNode16);
         }
 	nodeList.add(pfunctionNode1);
         return nodeList;
