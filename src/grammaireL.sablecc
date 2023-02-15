@@ -49,27 +49,52 @@ Ignored Tokens
 espaces, commentaire;
 
 Productions
+
 realvalues={false}false|{true}true|{nombre}nombre;
+
 log={or}or|{and}and;
+
+operations ={log} log | {cmp}cmp;
+
+singlevalue={identif} identif |{notidentif} not identif |{booleans} booleans | {nombre} nombre | {callfunc} identif lp nparam? rp;
+
+value= {multiplevalues} singlevalue operations value | {singlevalue} singlevalue;
+
 cmp={bigger}bigger |{smaller}smaller | {notequal}notequal | {equal}equal;
+
 type={entier}entier|{boolean} boolean ;
+
 op={plus}plus|{minus}minus|{mult}mult|{div}div;
+
 booleans={true}true|{false}false;
+
 nparameters={identif}identif |{nombre} nombre |{booleans}booleans;
+
 nparam={multiparam} nparameters virgul nparam |{singleparam} nparameters;
-var={callfunc} identif lp nparam? rp|{identif}identif |{nombre}nombre;
-realvar={multivar} var op realvar |{singlevar} var;
-affectation=identif equal realvar;
+
+affectation=identif equal value;
+
 condition = si lp expression rp alors startfunc instruction* endfunc elsecondition?;
+
 loop=while lp expression rp do startfunc instruction* endfunc;
 
-
 elsecondition=else startfunc instruction* endfunc;
+
 expression={multiple}singleexpression log expression |{single}singleexpression;
+
 singleexpression={identifidentif}[first]:identif cmp [second]:identif |{identifrealvalue}identif cmp realvalues|{realvalueidentif}realvalues cmp identif;
+
 parameter= type identif;
+
 parameters = {multiple} parameter virgul parameters |{single} parameter;
+
 programme ={default} function programme | {main}main;
+
+
 main = mainfunc parameters? startfunc instruction* endfunc;
-instruction={affectation}affectation|{condition}condition|{callfunc} identif lp nparam? rp pv|{read} read|{write} write lp identif rp pv;
+
+
+instruction={affectation}affectation|{condition}condition|{callfunc} identif lp nparam? rp pv|{read} identif equal read|{write} write lp value rp pv;
+
+
 function=type [first]:identif lp [funcparams]:parameters? rp [declaration]:parameters? startfunc instruction* return [second]:identif pv endfunc;
