@@ -9,11 +9,11 @@ alphanum = [lettre + chiffre];
 
 Tokens
 
-espaces = (' ' | 13 | 10)+;
+espaces=(' ' | 13 | 10)+;
 commentaire= '#' [[0 .. 0xffff] - [10 + 13]]* (10 | 13 | 10 13);
-virgule = ',';
-nombre = chiffre+;
-identif = alpha alphanum*;
+virgule =',';
+nombre =chiffre+;
+identif =alpha alphanum*;
 plus='+';
 minus='-';
 mult='*';
