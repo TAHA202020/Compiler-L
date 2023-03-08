@@ -8,12 +8,11 @@ alpha = [lettre + ['_' + '$']];
 alphanum = [lettre + chiffre];
 
 Tokens
-
+virgul=',';
 espaces = (' ' | 13 | 10)+;
 commentaire= '#' [[0 .. 0xffff] - [10 + 13]]* (10 | 13 | 10 13);
-virgule = ',';
 nombre = chiffre+;
-identif = alpha alphanum*;
+write='ecrire';
 plus='+';
 minus='-';
 mult='*';
@@ -23,11 +22,11 @@ rp=')';
 equal='=';
 startfunc='{';
 endfunc='}';
-virgul=',';
+
 pv=';';
 true='true';
 false='false';
-return='return';
+return='retour';
 entier='entier';
 boolean='bool';
 mainfunc='main()';
@@ -43,58 +42,53 @@ else='sinon';
 while='tantque';
 do='faire';
 read='lire();';
-write='ecrire';
+rb='[';
+lb=']';
+identif = alpha alphanum*;
+
 Ignored Tokens
 
 espaces, commentaire;
 
 Productions
 
+
+//start
+programme ={default} functionglobalvar programme | {main} main ;
+
+functionglobalvar={globalvar} parameters|{function}function ;
+//utils
 realvalues={false}false|{true}true|{nombre}nombre;
-
-log={or}or|{and}and;
-
-operations ={log} log | {cmp}cmp;
-
-singlevalue={identif} identif |{notidentif} not identif |{booleans} booleans | {nombre} nombre | {callfunc} identif lp nparam? rp;
-
-value= {multiplevalues} singlevalue operations value | {singlevalue} singlevalue;
-
-cmp={bigger}bigger |{smaller}smaller | {notequal}notequal | {equal}equal;
-
-type={entier}entier|{boolean} boolean ;
-
-op={plus}plus|{minus}minus|{mult}mult|{div}div;
-
+type={entier} entier| {boolean} boolean;
+op={plus} plus| {minus} minus|{mult} mult| {div} div;
 booleans={true}true|{false}false;
+loop=while  value  do startfunc instruction* endfunc;
+log={or}or | {and}and;
+cmp={bigger}bigger |{smaller}smaller | {notequal}notequal | {equal}equal;
+operations ={log} log | {cmp}cmp | {op} op;
+singlevalue={identif} identif tablevalues? |{booleans} booleans | {nombre} nombre| {callfunction} identif lp nparam? rp;
+value= {multiplevalues} singlevalue operations value| {singlevalue} singlevalue | {brakets} lp value rp | {notvalue} not value;
 
-nparameters={identif}identif |{nombre} nombre |{booleans}booleans;
-
-nparam={multiparam} nparameters virgul nparam |{singleparam} nparameters;
-
-affectation=identif equal value;
-
-condition = si lp expression rp alors startfunc instruction* endfunc elsecondition?;
-
-loop=while lp expression rp do startfunc instruction* endfunc;
-
+//Conditions
+condition = si value alors startfunc instruction* endfunc elsecondition?;
 elsecondition=else startfunc instruction* endfunc;
 
-expression={multiple}singleexpression log expression |{single}singleexpression;
 
-singleexpression={identifidentif}[first]:identif cmp [second]:identif |{identifrealvalue}identif cmp realvalues|{realvalueidentif}realvalues cmp identif;
-
-parameter= type identif;
-
-parameters = {multiple} parameter virgul parameters |{single} parameter;
-
-programme ={default} function programme | {main}main;
-
-
+//functions
+parameters = parametervirgul* parameter;
+parametervirgul= parameter virgul;
+parameter= type identif tablevalues?;
+realtablevalue={identif}identif | {nombre}nombre | {tablevalue}identif tablevalues;
+tablevalue= {multiple} realtablevalue op tablevalue | {single} realtablevalue;
+tablevalues=rb tablevalue lb ;
+function=type? identif [firstlp]:lp [funcparams]:parameters? [firstrp]:rp [declaration]:parameters? startfunc instruction* endfunc;
 main = mainfunc parameters? startfunc instruction* endfunc;
 
 
-instruction={affectation}affectation|{condition}condition|{callfunc} identif lp nparam? rp pv|{read} identif equal read|{write} write lp value rp pv ;
 
+//instructions
+nparam={multiparam} value virgul nparam |{singleparam} value;
 
-function=type identif [firstlp]:lp [funcparams]:parameters? [firstrp]:rp [declaration]:parameters? startfunc instruction* return [secondlp]:lp value [secondrp]:rp pv endfunc;
+instruction={affectation}affectation pv|{condition}condition|{callfunc} identif lp nparam? rp pv|{read} identif tablevalues? equal read pv |{write} write lp value rp pv | {returnstatement} returnstatement|{loop} loop;
+affectation=identif tablevalues? equal value;
+returnstatement=return value pv;

@@ -1,4 +1,4 @@
 main()
 {
-ecrire(0);
+ecrire(10 + 10);
 }

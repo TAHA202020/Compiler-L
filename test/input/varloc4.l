@@ -1,5 +1,5 @@
 main()
-entier var1, entier var2
+entier var1 , entier var2
 {
 var1 = 10;
 var2 = 30;
