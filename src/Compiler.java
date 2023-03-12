@@ -1,4 +1,7 @@
 import java.io.*;
+
+import sa.Sa2Xml;
+import sa.SaNode;
 import sc.parser.*;
 import sc.lexer.*;
 import sc.node.*;
@@ -33,36 +36,6 @@ public class Compiler
 	    System.out.println("java Compiler input_file -v verbose_level");
 	    System.exit(1);
 	}
-	File directoryPath = new File("../test/input");
-	String contents[] = directoryPath.list();
-	System.out.println("List of files and directories in the specified directory:");
-	for(int i=0; i<contents.length; i++) {
-		try {
-			br = new PushbackReader(new FileReader("../test/input/"+contents[i]));
-			baseName = removeSuffix(inputFileName, ".l");
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		try {
-			Parser p = new Parser(new Lexer(br));
-			System.out.println("[BUILD SC] ");
-			Start tree = p.parse();
-
-			if (verboseLevel > 1) {
-				System.out.println("[PRINT SC]");
-				tree.apply(new Sc2Xml(baseName));
-			}
-		}catch (ParserException e)
-		{
-			System.out.println("error in  ----------------------------------------------------------->"+ contents[i]);
-			e.printStackTrace();
-			System.out.println(e.getMessage());
-		}
-		catch (Exception e){
-
-		}
-	}
 	try {
 	    br = new PushbackReader(new FileReader(inputFileName));
 	    baseName = removeSuffix(inputFileName, ".l");
@@ -80,7 +53,7 @@ public class Compiler
 		tree.apply(new Sc2Xml(baseName));
 	    }
 	    
-	    /*System.out.println("[BUILD SA] ");
+	    System.out.println("[BUILD SA] ");
 	    Sc2sa sc2sa = new Sc2sa();
 	    tree.apply(sc2sa);
 	    SaNode saRoot = sc2sa.getRoot();
@@ -88,7 +61,7 @@ public class Compiler
 	    if(verboseLevel > 1){
 		System.out.println("[PRINT SA]");
 		new Sa2Xml(saRoot, baseName);
-		}*/
+		}
 	    
 	    /* System.out.println("[BUILD TS] ");
 	    Ts tableGlobale = new Sa2ts(saRoot).getTableGlobale();

@@ -22,7 +22,8 @@ rp=')';
 equal='=';
 startfunc='{';
 endfunc='}';
-
+rb='[';
+lb=']';
 pv=';';
 true='true';
 false='false';
@@ -42,8 +43,7 @@ else='sinon';
 while='tantque';
 do='faire';
 read='lire();';
-rb='[';
-lb=']';
+
 identif = alpha alphanum*;
 
 Ignored Tokens
@@ -54,7 +54,7 @@ Productions
 
 
 //start
-programme ={default} functionglobalvar programme | {main} main ;
+programme ={default} functionglobalvar programme | {main} main;
 
 functionglobalvar={globalvar} parameters|{function}function ;
 //utils
@@ -77,7 +77,8 @@ elsecondition=else startfunc instruction* endfunc;
 //functions
 parameters = parametervirgul* parameter;
 parametervirgul= parameter virgul;
-parameter= type identif tablevalues?;
+parameter= type identif tablesize?;
+tablesize=rb nombre lb;
 realtablevalue={identif}identif | {nombre}nombre | {tablevalue}identif tablevalues;
 tablevalue= {multiple} realtablevalue op tablevalue | {single} realtablevalue;
 tablevalues=rb tablevalue lb ;
