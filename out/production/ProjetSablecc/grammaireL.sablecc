@@ -1,0 +1,91 @@
+Package sc;
+
+Helpers
+
+lettre = [['a' .. 'z'] + ['A' .. 'Z']];
+chiffre = ['0' .. '9'];
+alpha = [lettre + ['_' + '$']];
+alphanum = [lettre + chiffre];
+
+Tokens
+
+espaces = (' ' | 13 | 10)+;
+commentaire= '#' [[0 .. 0xffff] - [10 + 13]]* (10 | 13 | 10 13);
+virgule = ',';
+nombre = chiffre+;
+write='ecrire';
+
+plus='+';
+minus='-';
+mult='*';
+div='/';
+lp='(';
+rp=')';
+equal='=';
+startfunc='{';
+endfunc='}';
+virgul=',';
+pv=';';
+true='true';
+false='false';
+return='return';
+entier='entier';
+boolean='bool';
+mainfunc='main()';
+si='si';
+and='&';
+or='|';
+not='!';
+bigger='>';
+smaller='<';
+notequal='!=';
+alors='alors';
+else='sinon';
+while='tantque';
+do='faire';
+read='lire();';
+identif = alpha alphanum*;
+
+Ignored Tokens
+
+espaces, commentaire;
+
+Productions
+
+
+//start
+programme ={default} functionglobalvar programme | {main} main;
+
+functionglobalvar={function}function | {globalvar} parameters;
+//utils
+realvalues={false}false|{true}true|{nombre}nombre;
+type={entier} entier| {boolean} boolean;
+op={plus} plus| {minus} minus|{mult} mult| {div} div;
+booleans={true}true|{false}false;
+loop=while lp expression rp do startfunc instruction* endfunc;
+log={or}or | {and}and;
+cmp={bigger}bigger |{smaller}smaller | {notequal}notequal | {equal}equal;
+operations ={log} log | {cmp}cmp | {op} op;
+
+
+//Conditions
+singleexpression={identifidentif} [first]:identif cmp [second]:identif |{identifrealvalue}identif cmp realvalues|{realvalueidentif}realvalues cmp identif |{booleans} [first]:booleans cmp [second]:booleans| {boolean}booleans|{identif} identif |{notidentif} not identif | {notboolean} not booleans ;
+expression={multiple}singleexpression log expression |{single}singleexpression |{bracketsexpression} lp expression rp;
+condition = si lp expression rp alors startfunc instruction* endfunc elsecondition?;
+elsecondition=else startfunc instruction* endfunc;
+
+
+//functions
+parameter= type identif;
+parameters = {multiple} parameter virgul parameters |{single} parameter;
+function=type? identif [firstlp]:lp [funcparams]:parameters? [firstrp]:rp [declaration]:parameters? startfunc instruction* returnstatement? endfunc;
+main = mainfunc parameters? startfunc instruction* endfunc;
+returnstatement=return lp value rp pv;
+
+
+//instructions
+nparam={multiparam} value virgul nparam |{singleparam} value;
+singlevalue={identif} identif |{notidentif} not identif |{booleans} booleans | {nombre} nombre| {callfunction} identif lp nparam? rp;
+value= {multiplevalues} singlevalue operations value| {singlevalue} singlevalue | {brakets} lp value rp;
+instruction={affectation}affectation pv|{condition}condition|{callfunc} identif lp nparam? rp pv|{read} identif equal read pv |{write} write lp value rp pv;
+affectation=identif equal value;
