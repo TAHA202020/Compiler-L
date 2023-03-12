@@ -10,7 +10,7 @@ alphanum = [lettre + chiffre];
 Tokens
 virgul=',';
 espaces = (' ' | 13 | 10)+;
-commentaire= '#' [[0 .. 0xffff] - [10 + 13]]* (10 | 13 | 10 13);
+commentaire = '#' [[0 .. 0xffff] - [10 + 13]]* (10 | 13 | 10 13);
 nombre = chiffre+;
 write='ecrire';
 plus='+';
