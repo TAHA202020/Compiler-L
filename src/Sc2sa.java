@@ -21,53 +21,46 @@ public class Sc2sa extends DepthFirstAdapter {
         return this.returnValue;
     }
 
-    public void caseADefaultProgramme(ADefaultProgramme node)
-    {
-        // functionglobalvar programme
-        inADefaultProgramme(node);
-        if(node.getFunctionglobalvar() != null)
-        {
-            node.getFunctionglobalvar().apply(this);
-        }
-        if(node.getProgramme() != null)
-        {
-            node.getProgramme().apply(this);
-        }
-        returnValue =new SaProg(variables,functions);
-        outADefaultProgramme(node);
-    }
+
     //functionglobalvar={globalvar} parameters|{function}function ;
-    public void caseAGlobalvarFunctionglobalvar(AGlobalvarFunctionglobalvar node)
-    {
-        inAGlobalvarFunctionglobalvar(node);
-        if(node.getParameters() != null)
+
+
+    @Override
+    public void caseAProgramme(AProgramme node) {
+        if (node.getParameters()!=null)
         {
             node.getParameters().apply(this);
             variables=(SaLDecVar) returnValue;
         }
-        outAGlobalvarFunctionglobalvar(node);
-    }
-    public void caseAFunctionFunctionglobalvar(AFunctionFunctionglobalvar node)
-    {
-        inAFunctionFunctionglobalvar(node);
-        if(node.getFunction() != null)
+        node.getMain().apply(this);
+        if (node.getFunction()!=null)
         {
-            node.getFunction().apply(this);
-            functions=new SaLDecFonc((SaDecFonc) returnValue,functions);
+            List<PFunction> pFunctions=new ArrayList<>(node.getFunction());
+            Collections.reverse(pFunctions);
+            for (PFunction function:pFunctions)
+            {
+                function.apply(this);
+            }
         }
-        outAFunctionFunctionglobalvar(node);
+        returnValue=new SaProg(variables,functions);
     }
+
     //function=type? identif [firstlp]:lp [funcparams]:parameters? [firstrp]:rp [declaration]:parameters? startfunc instruction* endfunc;
     //public SaDecFonc(String nom, Type typeRetour, SaLDecVar parametres, SaLDecVar variables, SaInst corps)
     public void caseAFunction(AFunction node)
     {
         inAFunction(node);
+        Type typetoreturn;
         if(node.getType() != null)
         {
             node.getType().apply(this);
+            typetoreturn=returnType;
         }
-        Type typetoreturn=returnType;
-        returnType=null;
+        else
+        {
+            typetoreturn=Type.NUL;
+        }
+
         String name=node.getIdentif().getText();
         SaLDecVar parametres=null;
         SaLDecVar variables=null;
@@ -76,14 +69,11 @@ public class Sc2sa extends DepthFirstAdapter {
             node.getFuncparams().apply(this);
             parametres=(SaLDecVar) returnValue;
         }
-
         if(node.getDeclaration() != null)
         {
             node.getDeclaration().apply(this);
             variables=(SaLDecVar) returnValue;
         }
-
-
         List<PInstruction> copy = new ArrayList<>(node.getInstruction());
         Collections.reverse(copy);
         SaLInst saLInst=null;
@@ -92,8 +82,14 @@ public class Sc2sa extends DepthFirstAdapter {
             e.apply(this);
             saLInst=new SaLInst((SaInst) returnValue,saLInst);
         }
-        SaInstBloc bloc=new SaInstBloc(saLInst);
-        returnValue =new SaDecFonc(name,typetoreturn,parametres,variables, bloc);
+        SaInstBloc bloc;
+        if (saLInst==null)
+        {
+            bloc=null;
+        }
+        else
+            bloc=new SaInstBloc(saLInst);
+        functions =new SaLDecFonc(new SaDecFonc(name,typetoreturn,parametres,variables, bloc),functions);
         outAFunction(node);
     }
     //main = mainfunc parameters? startfunc instruction* endfunc;
@@ -109,14 +105,20 @@ public class Sc2sa extends DepthFirstAdapter {
             e.apply(this);
             saLInst=new SaLInst((SaInst) returnValue,saLInst);
         }
-        SaInstBloc bloc=new SaInstBloc(saLInst);
+        SaInstBloc bloc;
+        if (saLInst==null)
+        {
+            bloc=null;
+        }
+        else
+            bloc=new SaInstBloc(saLInst);
         if(node.getParameters() != null)
         {
             node.getParameters().apply(this);
         }
         else
             returnValue =null;
-        functions= new SaLDecFonc(new SaDecFonc(node.getMainfunc().getText(),Type.NUL,null,(SaLDecVar) returnValue,bloc),functions);
+        functions= new SaLDecFonc(new SaDecFonc("main",Type.NUL,null,(SaLDecVar) returnValue,bloc),functions);
         outAMain(node);
     }
     //parameters = parametervirgul* parameter;
@@ -180,17 +182,6 @@ public class Sc2sa extends DepthFirstAdapter {
         inAEntierType(node);
         this.returnType = Type.ENTIER;
         outAEntierType(node);
-    }
-    //programme={main} main
-    public void caseAMainProgramme(AMainProgramme node)
-    {
-        inAMainProgramme(node);
-        if(node.getMain() != null)
-        {
-            node.getMain().apply(this);
-        }
-        returnValue=new SaProg(variables,functions);
-        outAMainProgramme(node);
     }
     //instructions
     //instruction={affectation}affectation pv|{condition}condition|{callfunc} identif lp nparam? rp pv|{read} identif tablevalues? equal read pv |{write} write lp value rp pv | {returnstatement} returnstatement|{loop} loop;
@@ -292,18 +283,18 @@ public class Sc2sa extends DepthFirstAdapter {
     @Override
     public void caseAIdentifSinglevalue(AIdentifSinglevalue node) {
 
-            if (node.getTablevalues()!=null)
-            {
-                node.getTablevalues().apply(this);
-                returnValue=new SaExpVar(new SaVarIndicee(node.getIdentif().getText(),(SaExp) returnValue));
-            }
-            else returnValue=new SaExpVar(new SaVarSimple(node.getIdentif().getText()));
+        if (node.getTablevalues()!=null)
+        {
+            node.getTablevalues().apply(this);
+            returnValue=new SaExpVar(new SaVarIndicee(node.getIdentif().getText(),(SaExp) returnValue));
+        }
+        else returnValue=new SaExpVar(new SaVarSimple(node.getIdentif().getText()));
 
     }
 
     @Override
     public void caseABooleansSinglevalue(ABooleansSinglevalue node) {
-            node.getBooleans().apply(this);
+        node.getBooleans().apply(this);
     }
 
     @Override

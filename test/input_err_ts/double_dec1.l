@@ -1,4 +1,4 @@
-entier a, bool a
+entier a
 main(){
-
+b=5;
 }

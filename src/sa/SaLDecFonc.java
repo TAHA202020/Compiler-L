@@ -12,6 +12,10 @@ public class SaLDecFonc implements SaNode{
     public SaDecFonc getTete(){return this.tete;}
     public SaLDecFonc getQueue(){return this.queue;}
 
+    public void setQueue(SaLDecFonc queue) {
+        this.queue = queue;
+    }
+
     public int length(){
 	if(this.queue == null) return 1;
 	return 1 + this.queue.length() ;

@@ -12,10 +12,7 @@ public interface Analysis extends Switch
     void setOut(Node node, Object o);
 
     void caseStart(Start node);
-    void caseADefaultProgramme(ADefaultProgramme node);
-    void caseAMainProgramme(AMainProgramme node);
-    void caseAGlobalvarFunctionglobalvar(AGlobalvarFunctionglobalvar node);
-    void caseAFunctionFunctionglobalvar(AFunctionFunctionglobalvar node);
+    void caseAProgramme(AProgramme node);
     void caseAFalseRealvalues(AFalseRealvalues node);
     void caseATrueRealvalues(ATrueRealvalues node);
     void caseANombreRealvalues(ANombreRealvalues node);

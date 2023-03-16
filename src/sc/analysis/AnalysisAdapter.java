@@ -75,25 +75,7 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
-    public void caseADefaultProgramme(ADefaultProgramme node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseAMainProgramme(AMainProgramme node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseAGlobalvarFunctionglobalvar(AGlobalvarFunctionglobalvar node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseAFunctionFunctionglobalvar(AFunctionFunctionglobalvar node)
+    public void caseAProgramme(AProgramme node)
     {
         defaultCase(node);
     }

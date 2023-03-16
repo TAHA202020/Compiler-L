@@ -36,92 +36,37 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         outStart(node);
     }
 
-    public void inADefaultProgramme(ADefaultProgramme node)
+    public void inAProgramme(AProgramme node)
     {
         defaultIn(node);
     }
 
-    public void outADefaultProgramme(ADefaultProgramme node)
+    public void outAProgramme(AProgramme node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseADefaultProgramme(ADefaultProgramme node)
+    public void caseAProgramme(AProgramme node)
     {
-        inADefaultProgramme(node);
-        if(node.getProgramme() != null)
-        {
-            node.getProgramme().apply(this);
-        }
-        if(node.getFunctionglobalvar() != null)
-        {
-            node.getFunctionglobalvar().apply(this);
-        }
-        outADefaultProgramme(node);
-    }
-
-    public void inAMainProgramme(AMainProgramme node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAMainProgramme(AMainProgramme node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAMainProgramme(AMainProgramme node)
-    {
-        inAMainProgramme(node);
+        inAProgramme(node);
         if(node.getMain() != null)
         {
             node.getMain().apply(this);
         }
-        outAMainProgramme(node);
-    }
-
-    public void inAGlobalvarFunctionglobalvar(AGlobalvarFunctionglobalvar node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAGlobalvarFunctionglobalvar(AGlobalvarFunctionglobalvar node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAGlobalvarFunctionglobalvar(AGlobalvarFunctionglobalvar node)
-    {
-        inAGlobalvarFunctionglobalvar(node);
+        {
+            List<PFunction> copy = new ArrayList<PFunction>(node.getFunction());
+            Collections.reverse(copy);
+            for(PFunction e : copy)
+            {
+                e.apply(this);
+            }
+        }
         if(node.getParameters() != null)
         {
             node.getParameters().apply(this);
         }
-        outAGlobalvarFunctionglobalvar(node);
-    }
-
-    public void inAFunctionFunctionglobalvar(AFunctionFunctionglobalvar node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAFunctionFunctionglobalvar(AFunctionFunctionglobalvar node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAFunctionFunctionglobalvar(AFunctionFunctionglobalvar node)
-    {
-        inAFunctionFunctionglobalvar(node);
-        if(node.getFunction() != null)
-        {
-            node.getFunction().apply(this);
-        }
-        outAFunctionFunctionglobalvar(node);
+        outAProgramme(node);
     }
 
     public void inAFalseRealvalues(AFalseRealvalues node)

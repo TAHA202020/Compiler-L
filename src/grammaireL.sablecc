@@ -54,9 +54,7 @@ Productions
 
 
 //start
-programme ={default} functionglobalvar programme | {main} main;
-
-functionglobalvar={globalvar} parameters|{function}function ;
+programme =parameters? function* main;
 //utils
 realvalues={false}false|{true}true|{nombre}nombre;
 type={entier} entier| {boolean} boolean;
