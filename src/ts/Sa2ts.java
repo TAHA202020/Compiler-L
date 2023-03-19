@@ -58,7 +58,7 @@ public class Sa2ts extends SaDepthFirstVisitor <Void> {
 			}
 			String nom= node.getNom();
 			Type type=node.getTypeRetour();
-			tableGlobale.addFct(nom,type,nbrArgs,tableLocaleCourante,node);
+			node.tsItem=tableGlobale.addFct(nom,type,nbrArgs,tableLocaleCourante,node);
 			context=Context.GLOBAL;
 		}else {
 			throw new ErrorException(Error.TS, "La fonction a été déja definie");
@@ -176,8 +176,10 @@ public class Sa2ts extends SaDepthFirstVisitor <Void> {
 		}
 		if (node.getArguments().length()!=tableGlobale.getFct(node.getNom()).getNbArgs())
 			throw  new ErrorException(Error.TS," nombre de parametre n'est pas correcte");
+		node.tsItem=tableGlobale.getFct(node.getNom());
 		defaultOut(node);
 		return null;
 	}
+
 
 }

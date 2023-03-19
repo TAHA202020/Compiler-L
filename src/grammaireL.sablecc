@@ -65,7 +65,7 @@ log={or}or | {and}and;
 cmp={bigger}bigger |{smaller}smaller | {notequal}notequal | {equal}equal;
 operations ={log} log | {cmp}cmp | {op} op;
 singlevalue={identif} identif tablevalues? |{booleans} booleans | {nombre} nombre| {callfunction} identif lp nparam? rp;
-value= {multiplevalues} singlevalue operations value| {singlevalue} singlevalue | {brakets} lp value rp | {notvalue} not value;
+value= {multiplevalues} singlevalue operations value | {singlevalue} singlevalue | {brakets} lp value rp | {notvalue} not value;
 
 //Conditions
 condition = si value alors startfunc instruction* endfunc elsecondition?;

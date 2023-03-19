@@ -1,4 +1,4 @@
 main()
 {
-ecrire((vrai & vrai) + 1);
+ecrire((vrai & vrai)+1);
 }
