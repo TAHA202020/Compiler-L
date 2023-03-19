@@ -10,7 +10,7 @@ public class Sa2ts extends SaDepthFirstVisitor <Void> {
 		PARAM
 	}
 
-	private Ts tableGlobale;
+	private Ts tableGlobale=new Ts();
 	private Ts tableLocaleCourante;
 	private Context context;
 
@@ -18,7 +18,6 @@ public class Sa2ts extends SaDepthFirstVisitor <Void> {
 
 	public Sa2ts(SaNode root)
 	{
-		tableGlobale = new Ts();
 		tableLocaleCourante = null;
 		context = Context.GLOBAL;
 		try{
@@ -35,14 +34,18 @@ public class Sa2ts extends SaDepthFirstVisitor <Void> {
 	}
 	public Void visit(SaDecFonc node)throws Exception
 	{
+		defaultIn(node);
 		if (tableGlobale.getFct(node.getNom())==null)
 		{
 			tableLocaleCourante=new Ts();
+			int nbrArgs;
 			if (node.getParametres()!=null)
 			{
 				context=Context.PARAM;
 				node.getParametres().accept(this);
+				nbrArgs=node.getParametres().length();
 			}
+			else nbrArgs=0;
 			if(node.getVariable()!=null)
 			{
 				context=Context.LOCAL;
@@ -50,24 +53,29 @@ public class Sa2ts extends SaDepthFirstVisitor <Void> {
 			}
 			if (node.getCorps()!=null)
 			{
+				context=Context.LOCAL;
 				node.getCorps().accept(this);
 			}
 			String nom= node.getNom();
 			Type type=node.getTypeRetour();
-			tableGlobale.addFct(nom,type,node.getParametres().length(),tableLocaleCourante,node);
+			tableGlobale.addFct(nom,type,nbrArgs,tableLocaleCourante,node);
 			context=Context.GLOBAL;
 		}else {
 			throw new ErrorException(Error.TS, "La fonction a été déja definie");
 		}
+		defaultOut(node);
+
 		return null;
 	}
 	public Void visit(SaDecVar node)throws ErrorException
 	{
+		defaultIn(node);
 		if (context==Context.PARAM)
 		{
 			if(tableLocaleCourante.getVar(node.getNom())==null)
 			{
-				tableLocaleCourante.addParam(node.getNom(),node.getType());
+				node.setTsItem(tableLocaleCourante.addParam(node.getNom(),node.getType()));
+
 			}else
 			{
 				throw new ErrorException(Error.TS,"param déja declarée");
@@ -77,7 +85,7 @@ public class Sa2ts extends SaDepthFirstVisitor <Void> {
 		{
 			if(tableLocaleCourante.getVar(node.getNom())==null)
 			{
-				tableLocaleCourante.addVar(node.getNom(),node.getType());
+				node.setTsItem(tableLocaleCourante.addVar(node.getNom(),node.getType()));
 			}else
 			{
 				throw new ErrorException(Error.TS,"varibale déja declarée");
@@ -86,66 +94,90 @@ public class Sa2ts extends SaDepthFirstVisitor <Void> {
 		if (context==Context.GLOBAL)
 		{
 			if(tableGlobale.getVar(node.getNom())==null) {
-				tableGlobale.addVar(node.getNom(), node.getType());
+				node.setTsItem(tableGlobale.addVar(node.getNom(), node.getType()));
 			}
 			else
 			{
 				throw new ErrorException(Error.TS,"varibale déja declarée");
 			}
 		}
+		defaultOut(node);
+
 		return null;
 	}
 	public Void visit(SaDecTab node)throws ErrorException
 	{
+		defaultIn(node);
 		if (context==Context.GLOBAL)
 		{
 			if(tableGlobale.getVar(node.getNom())==null)
 			{
-				tableGlobale.addTab(node.getNom(),node.getType(),node.getTaille());
+				node.setTsItem(tableGlobale.addTab(node.getNom(),node.getType(),node.getTaille()));
 			}else
 				throw new ErrorException(Error.TS,"variable deja declarée");
 
-		}if (context==Context.LOCAL)
-	{
-		if(tableLocaleCourante.getVar(node.getNom())==null)
-		{
-			tableGlobale.addTab(node.getNom(),node.getType(),node.getTaille());
-		}else
-			throw new ErrorException(Error.TS,"variable deja declarée");
-	}
-		if (context==Context.PARAM)
-		{
-			throw new ErrorException(Error.TS,"table connot be in params");
 		}
+		if (context==Context.LOCAL)
+		{
+			if(tableLocaleCourante.getVar(node.getNom())==null)
+			{
+				node.setTsItem(tableLocaleCourante.addTab(node.getNom(),node.getType(),node.getTaille()));
+			}else
+				throw new ErrorException(Error.TS,"variable deja declarée");
+		}
+
+		defaultOut(node);
+
 		return null;
 	}
 	public Void visit(SaVarSimple node)throws ErrorException
 	{
-		if (tableGlobale.getVar(node.getNom())==null && tableLocaleCourante.getVar(node.getNom())==null)
+		defaultIn(node);
+		if (tableGlobale.getVar(node.getNom())!=null)
 		{
-			throw new ErrorException(Error.TS,"varibale jamais déclaré");
+			node.tsItem=(TsItemVarSimple) tableGlobale.getVar(node.getNom());
 		}
+		else if (tableLocaleCourante.getVar(node.getNom())!=null)
+		{
+			node.tsItem=(TsItemVarSimple) tableLocaleCourante.getVar(node.getNom());
+		}
+		else
+		{
+			throw new ErrorException(Error.TS,"variable jamais declaré");
+		}
+		defaultOut(node);
 		return null;
 	}
 	public Void visit(SaVarIndicee node)throws ErrorException
 	{
-		if (tableGlobale.getVar(node.getNom())==null && tableLocaleCourante.getVar(node.getNom())==null)
+		defaultIn(node);
+		if (tableGlobale.getVar(node.getNom())!=null)
 		{
-			throw new ErrorException(Error.TS,"varibale jamais déclaré");
-
+			node.tsItem= tableGlobale.getVar(node.getNom());
 		}
+		else if (tableLocaleCourante.getVar(node.getNom())!=null)
+		{
+			node.tsItem= tableLocaleCourante.getVar(node.getNom());
+		}
+		else
+		{
+			throw new ErrorException(Error.TS,"variable jamais declaré");
+		}
+		defaultOut(node);
 		return null;
+
 	}
 	public Void visit(SaAppel node) throws ErrorException
 	{
+		defaultIn(node);
 		if (tableGlobale.getFct(node.getNom())==null)
 		{
 			throw new ErrorException(Error.TS,"fonction non declaré ");
 		}
-		System.out.println(node.getArguments().length());
-		System.out.println(tableGlobale.getFct(node.getNom()).getNbArgs());
 		if (node.getArguments().length()!=tableGlobale.getFct(node.getNom()).getNbArgs())
 			throw  new ErrorException(Error.TS," nombre de parametre n'est pas correcte");
+		defaultOut(node);
 		return null;
 	}
+
 }
