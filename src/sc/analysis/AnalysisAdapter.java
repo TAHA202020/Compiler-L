@@ -255,6 +255,12 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
+    public void caseARightbracketsValue(ARightbracketsValue node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
     public void caseACondition(ACondition node)
     {
         defaultCase(node);

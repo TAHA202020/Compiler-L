@@ -9,12 +9,12 @@ public final class TRead extends Token
 {
     public TRead()
     {
-        super.setText("lire();");
+        super.setText("lire()");
     }
 
     public TRead(int line, int pos)
     {
-        super.setText("lire();");
+        super.setText("lire()");
         setLine(line);
         setPos(pos);
     }

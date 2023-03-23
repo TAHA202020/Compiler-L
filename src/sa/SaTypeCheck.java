@@ -104,7 +104,6 @@ public class SaTypeCheck extends SaDepthFirstVisitor <Void>{
         Type op1=type;
         node.getRhs().accept(this);
         Type op2=type;
-        System.out.println(op1.nom());
         if (!(op1.nom().equals(op2.nom())))
             throw new ErrorException(Error.TYPE,"cannot affect to a differrent type");
         return null;
@@ -148,12 +147,6 @@ public class SaTypeCheck extends SaDepthFirstVisitor <Void>{
     }
     public Void visit(SaExpEqual node) throws Exception
     {
-        node.getOp1().accept(this);
-        Type op1=type;
-        node.getOp2().accept(this);
-        Type op2=type;
-        if (!(op1.nom().equals(op2.nom())) || !op1.nom().equals("bool"))
-            throw new ErrorException(Error.TYPE,"Operators must be of the same Type");
         type=Type.BOOL;
         return null;
     }
@@ -163,7 +156,7 @@ public class SaTypeCheck extends SaDepthFirstVisitor <Void>{
         Type op1=type;
         node.getOp2().accept(this);
         Type op2=type;
-        if (!(op1.nom().equals(op2.nom())) || !op1.nom().equals("bool"))
+        if (!(op1.nom().equals(op2.nom())) || !op1.nom().equals("entier"))
             throw new ErrorException(Error.TYPE,"Operators must be of the same Type");
         type=Type.BOOL;
         return null;

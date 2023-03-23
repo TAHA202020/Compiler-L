@@ -130,8 +130,9 @@ public class Sa2ts extends SaDepthFirstVisitor <Void> {
 
 		return null;
 	}
-	public Void visit(SaVarSimple node)throws ErrorException
+	public Void visit(SaVarSimple node) throws ErrorException
 	{
+		System.out.println(node.getNom());
 		defaultIn(node);
 		if (tableGlobale.getVar(node.getNom())!=null)
 		{
@@ -167,15 +168,25 @@ public class Sa2ts extends SaDepthFirstVisitor <Void> {
 		return null;
 
 	}
-	public Void visit(SaAppel node) throws ErrorException
+	public Void visit(SaAppel node) throws Exception
 	{
+
 		defaultIn(node);
 		if (tableGlobale.getFct(node.getNom())==null)
 		{
 			throw new ErrorException(Error.TS,"fonction non declaré ");
 		}
-		if (node.getArguments().length()!=tableGlobale.getFct(node.getNom()).getNbArgs())
-			throw  new ErrorException(Error.TS," nombre de parametre n'est pas correcte");
+		if (node.getArguments()!=null)
+		{
+			node.getArguments().accept(this);
+			if (node.getArguments().length()!=tableGlobale.getFct(node.getNom()).getNbArgs())
+				throw  new ErrorException(Error.TS," nombre de parametre n'est pas correcte");
+		}else
+		{
+			if (tableGlobale.getFct(node.getNom()).getNbArgs()>0)
+				throw  new ErrorException(Error.TS," nombre de parametre n'est pas correcte");
+		}
+
 		node.tsItem=tableGlobale.getFct(node.getNom());
 		defaultOut(node);
 		return null;

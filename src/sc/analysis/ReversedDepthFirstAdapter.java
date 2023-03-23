@@ -738,6 +738,43 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         outANotvalueValue(node);
     }
 
+    public void inARightbracketsValue(ARightbracketsValue node)
+    {
+        defaultIn(node);
+    }
+
+    public void outARightbracketsValue(ARightbracketsValue node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseARightbracketsValue(ARightbracketsValue node)
+    {
+        inARightbracketsValue(node);
+        if(node.getSecondvalue() != null)
+        {
+            node.getSecondvalue().apply(this);
+        }
+        if(node.getOperations() != null)
+        {
+            node.getOperations().apply(this);
+        }
+        if(node.getRp() != null)
+        {
+            node.getRp().apply(this);
+        }
+        if(node.getFirstvalue() != null)
+        {
+            node.getFirstvalue().apply(this);
+        }
+        if(node.getLp() != null)
+        {
+            node.getLp().apply(this);
+        }
+        outARightbracketsValue(node);
+    }
+
     public void inACondition(ACondition node)
     {
         defaultIn(node);

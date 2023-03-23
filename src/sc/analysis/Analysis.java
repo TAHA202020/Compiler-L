@@ -42,6 +42,7 @@ public interface Analysis extends Switch
     void caseASinglevalueValue(ASinglevalueValue node);
     void caseABraketsValue(ABraketsValue node);
     void caseANotvalueValue(ANotvalueValue node);
+    void caseARightbracketsValue(ARightbracketsValue node);
     void caseACondition(ACondition node);
     void caseAElsecondition(AElsecondition node);
     void caseAParameters(AParameters node);

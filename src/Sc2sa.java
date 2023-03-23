@@ -45,6 +45,64 @@ public class Sc2sa extends DepthFirstAdapter {
         returnValue=new SaProg(variables,functions);
     }
 
+    @Override
+    public void caseARightbracketsValue(ARightbracketsValue node) {
+        node.getFirstvalue().apply(this);
+        SaExp op1=(SaExp) returnValue;
+        node.getSecondvalue().apply(this);
+        SaExp op2=(SaExp) returnValue;
+        node.getOperations().apply(this);
+        if(operation=="plus")
+        {
+            returnValue = new SaExpAdd(op1,op2);
+        }
+        if(operation=="minus")
+        {
+
+            returnValue = new SaExpSub(op1,op2);
+        }
+        if(operation=="div")
+        {
+
+            returnValue = new SaExpDiv(op1,op2);
+        }
+        if(operation=="mult")
+        {
+
+            returnValue = new SaExpMult(op1,op2);
+        }
+        if(operation=="bigger")
+        {
+
+            returnValue = new SaExpInf(op2,op1);
+        }
+        if(operation=="smaller")
+        {
+
+            returnValue = new SaExpInf(op1,op2);
+        }
+        if(operation=="equal")
+        {
+
+            returnValue = new SaExpEqual(op1,op2);
+        }
+        if(operation=="notequal")
+        {
+
+            returnValue = new SaExpNot(new SaExpEqual(op1,op2));
+        }
+        if(operation=="or")
+        {
+
+            returnValue = new SaExpOr(op1,op2);
+        }
+        if(operation=="and")
+        {
+
+            returnValue = new SaExpAnd(op1,op2);
+        }
+    }
+
     //function=type? identif [firstlp]:lp [funcparams]:parameters? [firstrp]:rp [declaration]:parameters? startfunc instruction* endfunc;
     //public SaDecFonc(String nom, Type typeRetour, SaLDecVar parametres, SaLDecVar variables, SaInst corps)
     public void caseAFunction(AFunction node)
@@ -216,7 +274,15 @@ public class Sc2sa extends DepthFirstAdapter {
     @Override
     public void caseAReadInstruction(AReadInstruction node) {
         inAReadInstruction(node);
-        returnValue=new SaExpLire();
+        SaVar var;
+        if (node.getTablevalues()!=null)
+        {
+            node.getTablevalues().apply(this);
+            var=new SaVarIndicee(node.getIdentif().getText(),(SaExp) returnValue);
+        }
+        else
+            var=new SaVarSimple(node.getIdentif().getText());
+        returnValue=new SaInstAffect(var,new SaExpLire());
         outAReadInstruction(node);
     }
 
@@ -225,10 +291,8 @@ public class Sc2sa extends DepthFirstAdapter {
         node.getValue().apply(this);
         returnValue=new SaInstEcriture((SaExp) returnValue);
     }
-
     public void caseAAffectationInstruction(AAffectationInstruction node)
     {
-
         inAAffectationInstruction(node);
         if(node.getAffectation() != null)
         {
@@ -304,7 +368,7 @@ public class Sc2sa extends DepthFirstAdapter {
 
     @Override
     public void caseATrueBooleans(ATrueBooleans node) {
-        returnValue=new SaExpFaux();
+        returnValue=new SaExpVrai();
     }
 
     @Override
@@ -320,18 +384,17 @@ public class Sc2sa extends DepthFirstAdapter {
     public void caseAMultiplevaluesValue(AMultiplevaluesValue node)
     {
         inAMultiplevaluesValue(node);
-        node.getOperations().apply(this);
         node.getSinglevalue().apply(this);
         SaExp op1=(SaExp) returnValue;
         node.getValue().apply(this);
         SaExp op2=(SaExp) returnValue;
+        node.getOperations().apply(this);
         if(operation=="plus")
         {
             returnValue = new SaExpAdd(op1,op2);
         }
         if(operation=="minus")
         {
-
             returnValue = new SaExpSub(op1,op2);
         }
         if(operation=="div")
@@ -523,7 +586,11 @@ public class Sc2sa extends DepthFirstAdapter {
             e.apply(this);
             saLInst=new SaLInst((SaInst) returnValue,saLInst);
         }
-        SaInstBloc alors=new SaInstBloc(saLInst);
+        SaInstBloc alors=null;
+        if (saLInst!=null)
+        {
+             alors=new SaInstBloc(saLInst);
+        }
         returnValue=null;
         if (node.getElsecondition()!=null)
         {

@@ -1,12 +1,9 @@
 Package sc;
-
 Helpers
-
 lettre = [['a' .. 'z'] + ['A' .. 'Z']];
 chiffre = ['0' .. '9'];
 alpha = [lettre + ['_' + '$']];
 alphanum = [lettre + chiffre];
-
 Tokens
 virgul=',';
 espaces = (' ' | 13 | 10)+;
@@ -42,20 +39,12 @@ alors='alors';
 else='sinon';
 while='tantque';
 do='faire';
-read='lire();';
-
+read='lire()';
 identif = alpha alphanum*;
-
 Ignored Tokens
-
 espaces, commentaire;
-
 Productions
-
-
-//start
 programme =parameters? function* main;
-//utils
 realvalues={false}false|{true}true|{nombre}nombre;
 type={entier} entier| {boolean} boolean;
 op={plus} plus| {minus} minus|{mult} mult| {div} div;
@@ -65,14 +54,9 @@ log={or}or | {and}and;
 cmp={bigger}bigger |{smaller}smaller | {notequal}notequal | {equal}equal;
 operations ={log} log | {cmp}cmp | {op} op;
 singlevalue={identif} identif tablevalues? |{booleans} booleans | {nombre} nombre| {callfunction} identif lp nparam? rp;
-value= {multiplevalues} singlevalue operations value | {singlevalue} singlevalue | {brakets} lp value rp | {notvalue} not value;
-
-//Conditions
+value= {multiplevalues} singlevalue operations value | {singlevalue} singlevalue | {brakets} lp value rp | {notvalue} not value | {rightbrackets} lp [firstvalue]:value rp operations [secondvalue]:value ;
 condition = si value alors startfunc instruction* endfunc elsecondition?;
 elsecondition=else startfunc instruction* endfunc;
-
-
-//functions
 parameters = parametervirgul* parameter;
 parametervirgul= parameter virgul;
 parameter= type identif tablesize?;
@@ -82,12 +66,7 @@ tablevalue= {multiple} realtablevalue op tablevalue | {single} realtablevalue;
 tablevalues=rb tablevalue lb ;
 function=type? identif [firstlp]:lp [funcparams]:parameters? [firstrp]:rp [declaration]:parameters? startfunc instruction* endfunc;
 main = mainfunc parameters? startfunc instruction* endfunc;
-
-
-
-//instructions
 nparam={multiparam} value virgul nparam |{singleparam} value;
-
 instruction={affectation}affectation pv|{condition}condition|{callfunc} identif lp nparam? rp pv|{read} identif tablevalues? equal read pv |{write} write lp value rp pv | {returnstatement} returnstatement|{loop} loop;
 affectation=identif tablevalues? equal value;
 returnstatement=return value pv;
