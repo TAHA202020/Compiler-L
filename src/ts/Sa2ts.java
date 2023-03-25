@@ -149,16 +149,18 @@ public class Sa2ts extends SaDepthFirstVisitor <Void> {
 		defaultOut(node);
 		return null;
 	}
-	public Void visit(SaVarIndicee node)throws ErrorException
+	public Void visit(SaVarIndicee node)throws Exception
 	{
 		defaultIn(node);
 		if (tableGlobale.getVar(node.getNom())!=null)
 		{
 			node.tsItem= tableGlobale.getVar(node.getNom());
+			node.getIndice().accept(this);
 		}
 		else if (tableLocaleCourante.getVar(node.getNom())!=null)
 		{
 			node.tsItem= tableLocaleCourante.getVar(node.getNom());
+			node.getIndice().accept(this);
 		}
 		else
 		{

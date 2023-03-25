@@ -133,10 +133,13 @@ public class Sa2c3a extends SaDepthFirstVisitor <C3aOperand> {
     }
     public C3aOperand visit(SaVarSimple node)
     {
+        if(node.tsItem==null)
+            System.out.println("null");
         return new C3aVar(node.tsItem,null);
     }
     public C3aOperand visit(SaVarIndicee node)throws Exception
     {
+
         C3aOperand index=node.getIndice().accept(this);
         return new C3aVar(node.getTsItem(),index);
     }
