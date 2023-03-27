@@ -84,7 +84,10 @@ public class Sa2c3a extends SaDepthFirstVisitor <C3aOperand> {
     {
         return new C3aConstant(node.getVal());
     }
-
+    public C3aOperand visit(SaExpAppel node)throws Exception
+    {
+        return node.getVal().accept(this);
+    }
     public C3aOperand visit(SaAppel node) throws Exception
     {
         if (node.getArguments()!=null)
@@ -103,7 +106,6 @@ public class Sa2c3a extends SaDepthFirstVisitor <C3aOperand> {
     }
     public C3aOperand visit(SaDecFonc node)throws Exception
     {
-
         c3a.ajouteInst(new C3aInstFBegin(node.tsItem,""));
         if (node.getCorps()!=null)
         {
@@ -114,9 +116,11 @@ public class Sa2c3a extends SaDepthFirstVisitor <C3aOperand> {
     }
     public C3aOperand visit(SaInstAffect node) throws Exception
     {
+        defaultIn(node);
         C3aOperand var=node.getLhs().accept(this);
         C3aOperand value=node.getRhs().accept(this);
         c3a.ajouteInst(new C3aInstAffect(value,var,""));
+        defaultOut(node);
         return null;
     }
     public C3aOperand visit(SaInstRetour node)throws Exception

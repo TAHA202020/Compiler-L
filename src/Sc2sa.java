@@ -338,7 +338,7 @@ public class Sc2sa extends DepthFirstAdapter {
         if (node.getNparam()!=null)
         {
             node.getNparam().apply(this);
-            params=(SaLExp)returnValue;
+            params=parameters;
         }
 
         returnValue=new SaExpAppel(new SaAppel(node.getIdentif().getText(),params));

@@ -132,7 +132,6 @@ public class Sa2ts extends SaDepthFirstVisitor <Void> {
 	}
 	public Void visit(SaVarSimple node) throws ErrorException
 	{
-		System.out.println(node.getNom());
 		defaultIn(node);
 		if (tableGlobale.getVar(node.getNom())!=null)
 		{
