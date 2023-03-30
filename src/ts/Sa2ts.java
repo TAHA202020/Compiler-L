@@ -9,7 +9,7 @@ public class Sa2ts extends SaDepthFirstVisitor <Void> {
 		GLOBAL,
 		PARAM
 	}
-
+	private String fctcourante=null;
 	private Ts tableGlobale=new Ts();
 	private Ts tableLocaleCourante;
 	private Context context;
@@ -51,15 +51,16 @@ public class Sa2ts extends SaDepthFirstVisitor <Void> {
 				context=Context.LOCAL;
 				node.getVariable().accept(this);
 			}
+			String nom= node.getNom();
+			Type type=node.getTypeRetour();
+			node.tsItem=tableGlobale.addFct(nom,type,nbrArgs,tableLocaleCourante,node);
+			context=Context.GLOBAL;
 			if (node.getCorps()!=null)
 			{
 				context=Context.LOCAL;
 				node.getCorps().accept(this);
 			}
-			String nom= node.getNom();
-			Type type=node.getTypeRetour();
-			node.tsItem=tableGlobale.addFct(nom,type,nbrArgs,tableLocaleCourante,node);
-			context=Context.GLOBAL;
+
 		}else {
 			throw new ErrorException(Error.TS, "La fonction a été déja definie");
 		}
@@ -173,19 +174,23 @@ public class Sa2ts extends SaDepthFirstVisitor <Void> {
 	{
 
 		defaultIn(node);
-		if (tableGlobale.getFct(node.getNom())==null)
+		System.out.println(fctcourante);
+		System.out.println(node.getNom());
+		if (tableGlobale.getFct(node.getNom())==null )
 		{
 			throw new ErrorException(Error.TS,"fonction non declaré ");
 		}
 		if (node.getArguments()!=null)
 		{
 			node.getArguments().accept(this);
+			System.out.println(node.getArguments().length());
+			System.out.println(tableGlobale.getFct(node.getNom()).getNbArgs());
 			if (node.getArguments().length()!=tableGlobale.getFct(node.getNom()).getNbArgs())
-				throw  new ErrorException(Error.TS," nombre de parametre n'est pas correcte");
+				throw  new ErrorException(Error.TS," nombre de parametre n'est pas correcte 1");
 		}else
 		{
 			if (tableGlobale.getFct(node.getNom()).getNbArgs()>0)
-				throw  new ErrorException(Error.TS," nombre de parametre n'est pas correcte");
+				throw  new ErrorException(Error.TS," nombre de parametre n'est pas correcte 2");
 		}
 
 		node.tsItem=tableGlobale.getFct(node.getNom());

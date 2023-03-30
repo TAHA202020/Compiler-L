@@ -8,7 +8,6 @@ import sc.analysis.*;
 public final class AAffectationInstruction extends PInstruction
 {
     private PAffectation _affectation_;
-    private TPv _pv_;
 
     public AAffectationInstruction()
     {
@@ -16,13 +15,10 @@ public final class AAffectationInstruction extends PInstruction
     }
 
     public AAffectationInstruction(
-        @SuppressWarnings("hiding") PAffectation _affectation_,
-        @SuppressWarnings("hiding") TPv _pv_)
+        @SuppressWarnings("hiding") PAffectation _affectation_)
     {
         // Constructor
         setAffectation(_affectation_);
-
-        setPv(_pv_);
 
     }
 
@@ -30,8 +26,7 @@ public final class AAffectationInstruction extends PInstruction
     public Object clone()
     {
         return new AAffectationInstruction(
-            cloneNode(this._affectation_),
-            cloneNode(this._pv_));
+            cloneNode(this._affectation_));
     }
 
     @Override
@@ -65,37 +60,11 @@ public final class AAffectationInstruction extends PInstruction
         this._affectation_ = node;
     }
 
-    public TPv getPv()
-    {
-        return this._pv_;
-    }
-
-    public void setPv(TPv node)
-    {
-        if(this._pv_ != null)
-        {
-            this._pv_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._pv_ = node;
-    }
-
     @Override
     public String toString()
     {
         return ""
-            + toString(this._affectation_)
-            + toString(this._pv_);
+            + toString(this._affectation_);
     }
 
     @Override
@@ -105,12 +74,6 @@ public final class AAffectationInstruction extends PInstruction
         if(this._affectation_ == child)
         {
             this._affectation_ = null;
-            return;
-        }
-
-        if(this._pv_ == child)
-        {
-            this._pv_ = null;
             return;
         }
 
@@ -124,12 +87,6 @@ public final class AAffectationInstruction extends PInstruction
         if(this._affectation_ == oldChild)
         {
             setAffectation((PAffectation) newChild);
-            return;
-        }
-
-        if(this._pv_ == oldChild)
-        {
-            setPv((TPv) newChild);
             return;
         }
 

@@ -57,7 +57,6 @@ public class Compiler
 		System.out.println("[PRINT SC]");
 		tree.apply(new Sc2Xml(baseName));
 	    }
-
 	    System.out.println("[BUILD SA] ");
 	    Sc2sa sc2sa = new Sc2sa();
 	    tree.apply(sc2sa);

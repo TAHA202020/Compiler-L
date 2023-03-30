@@ -7,10 +7,10 @@ import sc.analysis.*;
 @SuppressWarnings("nls")
 public final class AAffectation extends PAffectation
 {
-    private TIdentif _identif_;
-    private PTablevalues _tablevalues_;
-    private TEqual _equal_;
-    private PValue _value_;
+    private PVarname _varname_;
+    private TEgale _egale_;
+    private PExpression _expression_;
+    private TPv _pv_;
 
     public AAffectation()
     {
@@ -18,19 +18,19 @@ public final class AAffectation extends PAffectation
     }
 
     public AAffectation(
-        @SuppressWarnings("hiding") TIdentif _identif_,
-        @SuppressWarnings("hiding") PTablevalues _tablevalues_,
-        @SuppressWarnings("hiding") TEqual _equal_,
-        @SuppressWarnings("hiding") PValue _value_)
+        @SuppressWarnings("hiding") PVarname _varname_,
+        @SuppressWarnings("hiding") TEgale _egale_,
+        @SuppressWarnings("hiding") PExpression _expression_,
+        @SuppressWarnings("hiding") TPv _pv_)
     {
         // Constructor
-        setIdentif(_identif_);
+        setVarname(_varname_);
 
-        setTablevalues(_tablevalues_);
+        setEgale(_egale_);
 
-        setEqual(_equal_);
+        setExpression(_expression_);
 
-        setValue(_value_);
+        setPv(_pv_);
 
     }
 
@@ -38,10 +38,10 @@ public final class AAffectation extends PAffectation
     public Object clone()
     {
         return new AAffectation(
-            cloneNode(this._identif_),
-            cloneNode(this._tablevalues_),
-            cloneNode(this._equal_),
-            cloneNode(this._value_));
+            cloneNode(this._varname_),
+            cloneNode(this._egale_),
+            cloneNode(this._expression_),
+            cloneNode(this._pv_));
     }
 
     @Override
@@ -50,16 +50,16 @@ public final class AAffectation extends PAffectation
         ((Analysis) sw).caseAAffectation(this);
     }
 
-    public TIdentif getIdentif()
+    public PVarname getVarname()
     {
-        return this._identif_;
+        return this._varname_;
     }
 
-    public void setIdentif(TIdentif node)
+    public void setVarname(PVarname node)
     {
-        if(this._identif_ != null)
+        if(this._varname_ != null)
         {
-            this._identif_.parent(null);
+            this._varname_.parent(null);
         }
 
         if(node != null)
@@ -72,19 +72,19 @@ public final class AAffectation extends PAffectation
             node.parent(this);
         }
 
-        this._identif_ = node;
+        this._varname_ = node;
     }
 
-    public PTablevalues getTablevalues()
+    public TEgale getEgale()
     {
-        return this._tablevalues_;
+        return this._egale_;
     }
 
-    public void setTablevalues(PTablevalues node)
+    public void setEgale(TEgale node)
     {
-        if(this._tablevalues_ != null)
+        if(this._egale_ != null)
         {
-            this._tablevalues_.parent(null);
+            this._egale_.parent(null);
         }
 
         if(node != null)
@@ -97,19 +97,19 @@ public final class AAffectation extends PAffectation
             node.parent(this);
         }
 
-        this._tablevalues_ = node;
+        this._egale_ = node;
     }
 
-    public TEqual getEqual()
+    public PExpression getExpression()
     {
-        return this._equal_;
+        return this._expression_;
     }
 
-    public void setEqual(TEqual node)
+    public void setExpression(PExpression node)
     {
-        if(this._equal_ != null)
+        if(this._expression_ != null)
         {
-            this._equal_.parent(null);
+            this._expression_.parent(null);
         }
 
         if(node != null)
@@ -122,19 +122,19 @@ public final class AAffectation extends PAffectation
             node.parent(this);
         }
 
-        this._equal_ = node;
+        this._expression_ = node;
     }
 
-    public PValue getValue()
+    public TPv getPv()
     {
-        return this._value_;
+        return this._pv_;
     }
 
-    public void setValue(PValue node)
+    public void setPv(TPv node)
     {
-        if(this._value_ != null)
+        if(this._pv_ != null)
         {
-            this._value_.parent(null);
+            this._pv_.parent(null);
         }
 
         if(node != null)
@@ -147,44 +147,44 @@ public final class AAffectation extends PAffectation
             node.parent(this);
         }
 
-        this._value_ = node;
+        this._pv_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._identif_)
-            + toString(this._tablevalues_)
-            + toString(this._equal_)
-            + toString(this._value_);
+            + toString(this._varname_)
+            + toString(this._egale_)
+            + toString(this._expression_)
+            + toString(this._pv_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._identif_ == child)
+        if(this._varname_ == child)
         {
-            this._identif_ = null;
+            this._varname_ = null;
             return;
         }
 
-        if(this._tablevalues_ == child)
+        if(this._egale_ == child)
         {
-            this._tablevalues_ = null;
+            this._egale_ = null;
             return;
         }
 
-        if(this._equal_ == child)
+        if(this._expression_ == child)
         {
-            this._equal_ = null;
+            this._expression_ = null;
             return;
         }
 
-        if(this._value_ == child)
+        if(this._pv_ == child)
         {
-            this._value_ = null;
+            this._pv_ = null;
             return;
         }
 
@@ -195,27 +195,27 @@ public final class AAffectation extends PAffectation
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._identif_ == oldChild)
+        if(this._varname_ == oldChild)
         {
-            setIdentif((TIdentif) newChild);
+            setVarname((PVarname) newChild);
             return;
         }
 
-        if(this._tablevalues_ == oldChild)
+        if(this._egale_ == oldChild)
         {
-            setTablevalues((PTablevalues) newChild);
+            setEgale((TEgale) newChild);
             return;
         }
 
-        if(this._equal_ == oldChild)
+        if(this._expression_ == oldChild)
         {
-            setEqual((TEqual) newChild);
+            setExpression((PExpression) newChild);
             return;
         }
 
-        if(this._value_ == oldChild)
+        if(this._pv_ == oldChild)
         {
-            setValue((PValue) newChild);
+            setPv((TPv) newChild);
             return;
         }
 

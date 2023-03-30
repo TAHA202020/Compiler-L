@@ -2,17 +2,14 @@
 
 package sc.node;
 
-import java.util.*;
 import sc.analysis.*;
 
 @SuppressWarnings("nls")
 public final class AMain extends PMain
 {
-    private TMainfunc _mainfunc_;
-    private PParameters _parameters_;
-    private TStartfunc _startfunc_;
-    private final LinkedList<PInstruction> _instruction_ = new LinkedList<PInstruction>();
-    private TEndfunc _endfunc_;
+    private TMainfc _mainfc_;
+    private PListedecvar _listedecvar_;
+    private PBloc _bloc_;
 
     public AMain()
     {
@@ -20,22 +17,16 @@ public final class AMain extends PMain
     }
 
     public AMain(
-        @SuppressWarnings("hiding") TMainfunc _mainfunc_,
-        @SuppressWarnings("hiding") PParameters _parameters_,
-        @SuppressWarnings("hiding") TStartfunc _startfunc_,
-        @SuppressWarnings("hiding") List<?> _instruction_,
-        @SuppressWarnings("hiding") TEndfunc _endfunc_)
+        @SuppressWarnings("hiding") TMainfc _mainfc_,
+        @SuppressWarnings("hiding") PListedecvar _listedecvar_,
+        @SuppressWarnings("hiding") PBloc _bloc_)
     {
         // Constructor
-        setMainfunc(_mainfunc_);
+        setMainfc(_mainfc_);
 
-        setParameters(_parameters_);
+        setListedecvar(_listedecvar_);
 
-        setStartfunc(_startfunc_);
-
-        setInstruction(_instruction_);
-
-        setEndfunc(_endfunc_);
+        setBloc(_bloc_);
 
     }
 
@@ -43,11 +34,9 @@ public final class AMain extends PMain
     public Object clone()
     {
         return new AMain(
-            cloneNode(this._mainfunc_),
-            cloneNode(this._parameters_),
-            cloneNode(this._startfunc_),
-            cloneList(this._instruction_),
-            cloneNode(this._endfunc_));
+            cloneNode(this._mainfc_),
+            cloneNode(this._listedecvar_),
+            cloneNode(this._bloc_));
     }
 
     @Override
@@ -56,16 +45,16 @@ public final class AMain extends PMain
         ((Analysis) sw).caseAMain(this);
     }
 
-    public TMainfunc getMainfunc()
+    public TMainfc getMainfc()
     {
-        return this._mainfunc_;
+        return this._mainfc_;
     }
 
-    public void setMainfunc(TMainfunc node)
+    public void setMainfc(TMainfc node)
     {
-        if(this._mainfunc_ != null)
+        if(this._mainfc_ != null)
         {
-            this._mainfunc_.parent(null);
+            this._mainfc_.parent(null);
         }
 
         if(node != null)
@@ -78,19 +67,19 @@ public final class AMain extends PMain
             node.parent(this);
         }
 
-        this._mainfunc_ = node;
+        this._mainfc_ = node;
     }
 
-    public PParameters getParameters()
+    public PListedecvar getListedecvar()
     {
-        return this._parameters_;
+        return this._listedecvar_;
     }
 
-    public void setParameters(PParameters node)
+    public void setListedecvar(PListedecvar node)
     {
-        if(this._parameters_ != null)
+        if(this._listedecvar_ != null)
         {
-            this._parameters_.parent(null);
+            this._listedecvar_.parent(null);
         }
 
         if(node != null)
@@ -103,19 +92,19 @@ public final class AMain extends PMain
             node.parent(this);
         }
 
-        this._parameters_ = node;
+        this._listedecvar_ = node;
     }
 
-    public TStartfunc getStartfunc()
+    public PBloc getBloc()
     {
-        return this._startfunc_;
+        return this._bloc_;
     }
 
-    public void setStartfunc(TStartfunc node)
+    public void setBloc(PBloc node)
     {
-        if(this._startfunc_ != null)
+        if(this._bloc_ != null)
         {
-            this._startfunc_.parent(null);
+            this._bloc_.parent(null);
         }
 
         if(node != null)
@@ -128,101 +117,37 @@ public final class AMain extends PMain
             node.parent(this);
         }
 
-        this._startfunc_ = node;
-    }
-
-    public LinkedList<PInstruction> getInstruction()
-    {
-        return this._instruction_;
-    }
-
-    public void setInstruction(List<?> list)
-    {
-        for(PInstruction e : this._instruction_)
-        {
-            e.parent(null);
-        }
-        this._instruction_.clear();
-
-        for(Object obj_e : list)
-        {
-            PInstruction e = (PInstruction) obj_e;
-            if(e.parent() != null)
-            {
-                e.parent().removeChild(e);
-            }
-
-            e.parent(this);
-            this._instruction_.add(e);
-        }
-    }
-
-    public TEndfunc getEndfunc()
-    {
-        return this._endfunc_;
-    }
-
-    public void setEndfunc(TEndfunc node)
-    {
-        if(this._endfunc_ != null)
-        {
-            this._endfunc_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._endfunc_ = node;
+        this._bloc_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._mainfunc_)
-            + toString(this._parameters_)
-            + toString(this._startfunc_)
-            + toString(this._instruction_)
-            + toString(this._endfunc_);
+            + toString(this._mainfc_)
+            + toString(this._listedecvar_)
+            + toString(this._bloc_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._mainfunc_ == child)
+        if(this._mainfc_ == child)
         {
-            this._mainfunc_ = null;
+            this._mainfc_ = null;
             return;
         }
 
-        if(this._parameters_ == child)
+        if(this._listedecvar_ == child)
         {
-            this._parameters_ = null;
+            this._listedecvar_ = null;
             return;
         }
 
-        if(this._startfunc_ == child)
+        if(this._bloc_ == child)
         {
-            this._startfunc_ = null;
-            return;
-        }
-
-        if(this._instruction_.remove(child))
-        {
-            return;
-        }
-
-        if(this._endfunc_ == child)
-        {
-            this._endfunc_ = null;
+            this._bloc_ = null;
             return;
         }
 
@@ -233,45 +158,21 @@ public final class AMain extends PMain
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._mainfunc_ == oldChild)
+        if(this._mainfc_ == oldChild)
         {
-            setMainfunc((TMainfunc) newChild);
+            setMainfc((TMainfc) newChild);
             return;
         }
 
-        if(this._parameters_ == oldChild)
+        if(this._listedecvar_ == oldChild)
         {
-            setParameters((PParameters) newChild);
+            setListedecvar((PListedecvar) newChild);
             return;
         }
 
-        if(this._startfunc_ == oldChild)
+        if(this._bloc_ == oldChild)
         {
-            setStartfunc((TStartfunc) newChild);
-            return;
-        }
-
-        for(ListIterator<PInstruction> i = this._instruction_.listIterator(); i.hasNext();)
-        {
-            if(i.next() == oldChild)
-            {
-                if(newChild != null)
-                {
-                    i.set((PInstruction) newChild);
-                    newChild.parent(this);
-                    oldChild.parent(null);
-                    return;
-                }
-
-                i.remove();
-                oldChild.parent(null);
-                return;
-            }
-        }
-
-        if(this._endfunc_ == oldChild)
-        {
-            setEndfunc((TEndfunc) newChild);
+            setBloc((PBloc) newChild);
             return;
         }
 

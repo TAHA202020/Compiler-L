@@ -9,12 +9,12 @@ public final class TLp extends Token
 {
     public TLp()
     {
-        super.setText("(");
+        super.setText(")");
     }
 
     public TLp(int line, int pos)
     {
-        super.setText("(");
+        super.setText(")");
         setLine(line);
         setPos(pos);
     }

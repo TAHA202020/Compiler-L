@@ -36,11 +36,11 @@ public class SaTypeCheck extends SaDepthFirstVisitor <Void>{
         Type op1=type;
         node.getOp2().accept(this);
         Type op2=type;
-        if(!(op1.nom().equals(op2.nom()) && op1.nom().equals("entier")))
-        {
+        System.out.println(op1.nom());
+        if((op1.nom().equals(op2.nom()) && op1.nom().equals("entier"))) {
+            type = Type.ENTIER;
+        }else
             throw new ErrorException(Error.TYPE,"les deux operants doivent etre entier");
-        }
-        type=Type.ENTIER;
         return null;
     }
     public Void visit(SaExpDiv node) throws Exception {
@@ -72,12 +72,6 @@ public class SaTypeCheck extends SaDepthFirstVisitor <Void>{
         type=Type.ENTIER;
         return null;
     }
-    public Void visit(SaInstEcriture node) throws Exception {
-        node.getArg().accept(this);
-        if (type.nom().equals("bool"))
-            throw new ErrorException(Error.TYPE,"Ecrire must write only entier");
-        return null;
-    }
     public Void visit(SaExpFaux node) throws ErrorException
     {
         type=Type.BOOL;
@@ -86,6 +80,11 @@ public class SaTypeCheck extends SaDepthFirstVisitor <Void>{
     public Void visit(SaExpVrai node) throws ErrorException
     {
         type=Type.BOOL;
+        return null;
+    }
+    public Void visit(SaExpAppel node)throws Exception
+    {
+        node.getVal().accept(this);
         return null;
     }
     public Void visit(SaExpNot node) throws Exception
@@ -180,6 +179,7 @@ public class SaTypeCheck extends SaDepthFirstVisitor <Void>{
                 params=params.getQueue();
             }
         }
+
         type=node.getType();
         return null;
     }
@@ -192,7 +192,10 @@ public class SaTypeCheck extends SaDepthFirstVisitor <Void>{
     }
     public Void visit(SaInstRetour node)throws Exception
     {
+
         node.getVal().accept(this);
+        System.out.println(type.nom());
+        System.out.println(fonctionCourante.typeRetour.nom());
         if (!type.nom().equals(fonctionCourante.typeRetour.nom()))
             throw new ErrorException(Error.TYPE,"Retour must be equal to function type");
         return null;

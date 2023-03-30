@@ -9,12 +9,12 @@ public final class TRp extends Token
 {
     public TRp()
     {
-        super.setText(")");
+        super.setText("(");
     }
 
     public TRp(int line, int pos)
     {
-        super.setText(")");
+        super.setText("(");
         setLine(line);
         setPos(pos);
     }
