@@ -12,18 +12,6 @@ public class Sc2sa extends DepthFirstAdapter
     SaLDecVar varibalesglobales=null;
     private SaNode returnValue;
     private Type returnType;
-    private PExpression returnExpression;
-
-    public void defaultIn(@SuppressWarnings("unused") Node node)
-    {
-        //System.out.println("<" + node.getClass().getSimpleName() + ">");
-    }
-
-    public void defaultOut(@SuppressWarnings("unused") Node node)
-    {
-        //System.out.println("</" + node.getClass().getSimpleName() + ">");
-    }
-
     public SaNode getRoot()
     {
         return this.returnValue;
