@@ -35,7 +35,43 @@ public class Sa2c3a extends SaDepthFirstVisitor <C3aOperand> {
 	//	for(int i = 0; i < indentation; i++){System.out.print(" ");}
 	//	System.out.println("</" + node.getClass().getSimpleName() + ">");
     }
+    public C3aOperand visit(SaExpCarre node)throws Exception
+    {
+        C3aOperand op=node.getOp1().accept(this);
+        C3aOperand result=c3a.newTemp();
+        c3a.ajouteInst(new C3aInstMult(op,op,result,""));
+        return result;
+    }
+    public C3aOperand visit(SaInstFaire node)throws Exception
+    {
+        C3aLabel start=c3a.newAutoLabel();
+        C3aLabel endloop=c3a.newAutoLabel();
+        c3a.addLabelToNextInst(start);
+        node.getFaire().accept(this);
+        C3aOperand resulttest=node.getTest().accept(this);
+        c3a.ajouteInst(new C3aInstJumpIfEqual(resulttest, c3a.False,endloop,""));
+        c3a.ajouteInst(new C3aInstJump(start,""));
+        c3a.addLabelToNextInst(endloop);
+        return null;
 
+    }
+    public C3aOperand visit(SaInstTantQue node)throws Exception
+    {
+        C3aOperand startloop= c3a.newAutoLabel();
+        C3aOperand endloop=c3a.newAutoLabel();
+        c3a.addLabelToNextInst((C3aLabel) startloop);
+        C3aOperand test=c3a.newTemp();
+        C3aOperand value=node.getTest().accept(this);
+        c3a.ajouteInst(new C3aInstAffect(value,test,""));
+        c3a.ajouteInst(new C3aInstJumpIfEqual(test, c3a.False,endloop,""));
+        if (node.getFaire()!=null)
+        {
+            node.getFaire().accept(this);
+        }
+        c3a.ajouteInst(new C3aInstJump(startloop,""));
+        c3a.addLabelToNextInst((C3aLabel) endloop);
+        return null;
+    }
     @Override
     public C3aOperand visit(SaExpAdd node) throws Exception
     {
@@ -251,21 +287,5 @@ public class Sa2c3a extends SaDepthFirstVisitor <C3aOperand> {
         c3a.addLabelToNextInst((C3aLabel) endsi);
         return null;
     }
-    public C3aOperand visit(SaInstTantQue node)throws Exception
-    {
-        C3aOperand startloop= c3a.newAutoLabel();
-        C3aOperand endloop=c3a.newAutoLabel();
-        c3a.addLabelToNextInst((C3aLabel) startloop);
-        C3aOperand test=c3a.newTemp();
-        C3aOperand value=node.getTest().accept(this);
-        c3a.ajouteInst(new C3aInstAffect(value,test,""));
-        c3a.ajouteInst(new C3aInstJumpIfEqual(test, c3a.False,endloop,""));
-        if (node.getFaire()!=null)
-        {
-            node.getFaire().accept(this);
-        }
-        c3a.ajouteInst(new C3aInstJump(startloop,""));
-        c3a.addLabelToNextInst((C3aLabel) endloop);
-        return null;
-    }
+
 }

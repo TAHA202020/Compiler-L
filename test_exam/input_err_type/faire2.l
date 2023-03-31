@@ -3,5 +3,5 @@ main()
 {
 faire{
 ecrire(1);
-}tantque a;
+}tantque a
 }

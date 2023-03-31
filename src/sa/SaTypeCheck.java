@@ -25,7 +25,6 @@ public class SaTypeCheck extends SaDepthFirstVisitor <Void>{
     {
         //			System.out.println("<" + node.getClass().getSimpleName() + ">");
     }
-
     public void defaultOut(SaNode node)
     {
         //		System.out.println("</" + node.getClass().getSimpleName() + ">");
@@ -42,6 +41,19 @@ public class SaTypeCheck extends SaDepthFirstVisitor <Void>{
         }else
             throw new ErrorException(Error.TYPE,"les deux operants doivent etre entier");
         return null;
+    }
+    public Void visit(SaExpCarre node) throws Exception
+    {
+        node.getOp1().accept(this);
+        Type op1=type;
+        if (op1.nom().equals("entier"))
+        {
+            type=Type.ENTIER;
+        }else
+        {
+            throw new ErrorException(Error.TYPE,"Operants must be entier");
+        }
+        return  null;
     }
     public Void visit(SaExpDiv node) throws Exception {
         node.getOp1().accept(this);
@@ -224,6 +236,15 @@ public class SaTypeCheck extends SaDepthFirstVisitor <Void>{
         return null;
     }
     public Void visit(SaInstTantQue node) throws Exception
+    {
+        node.getTest().accept(this);
+        if (!type.nom().equals("bool"))
+            throw new ErrorException(Error.TYPE,"Test must be noolean");
+        node.getFaire().accept(this);
+
+        return null;
+    }
+    public Void visit(SaInstFaire node) throws Exception
     {
         node.getTest().accept(this);
         if (!type.nom().equals("bool"))
