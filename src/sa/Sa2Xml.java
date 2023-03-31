@@ -165,21 +165,34 @@ public class Sa2Xml extends SaDepthFirstVisitor < Void > {
 	printCloseTag(nodeName);
 	return null;
     }
-    
-    public Void visit(SaInstTantQue node) throws Exception
-    {
-	String nodeName = this.childName;
-	printOpenTag(nodeName, node);
-	childName = "test";
-	node.getTest().accept(this);
-	if (node.getFaire() != null){
-	    childName = "faire";
-	    node.getFaire().accept(this);
+
+	public Void visit(SaInstTantQue node) throws Exception
+	{
+		String nodeName = this.childName;
+		printOpenTag(nodeName, node);
+		childName = "test";
+		node.getTest().accept(this);
+		if (node.getFaire() != null){
+			childName = "faire";
+			node.getFaire().accept(this);
+		}
+		printCloseTag(nodeName);
+		return null;
 	}
-	printCloseTag(nodeName);
-	return null;
-    }
-    
+	public Void visit(SaInstFaire node) throws Exception
+	{
+		String nodeName = this.childName;
+		printOpenTag(nodeName, node);
+		childName = "test";
+		node.getTest().accept(this);
+		if (node.getFaire() != null){
+			childName = "faire";
+			node.getFaire().accept(this);
+		}
+		printCloseTag(nodeName);
+		return null;
+	}
+
     public Void visit(SaLInst node) throws Exception
     {
 	if(node == null) return null;
@@ -437,15 +450,25 @@ public class Sa2Xml extends SaDepthFirstVisitor < Void > {
     }
 
     // EXP -> not EXP
-    public Void visit(SaExpNot node) throws Exception
-    {
-	String nodeName = this.childName;
-	printOpenTag(nodeName, node);
-	childName = "op1";
-	node.getOp1().accept(this);
-	printCloseTag(nodeName);
-	return null;
-    }
+	public Void visit(SaExpNot node) throws Exception
+	{
+		String nodeName = this.childName;
+		printOpenTag(nodeName, node);
+		childName = "op1";
+		node.getOp1().accept(this);
+		printCloseTag(nodeName);
+		return null;
+	}
+
+	public Void visit(SaExpCarre node) throws Exception
+	{
+		String nodeName = this.childName;
+		printOpenTag(nodeName, node);
+		childName = "op1";
+		node.getOp1().accept(this);
+		printCloseTag(nodeName);
+		return null;
+	}
 
 
     public Void visit(SaExpLire node) throws Exception
@@ -520,8 +543,15 @@ public class Sa2Xml extends SaDepthFirstVisitor < Void > {
 	return null;
     }
 
-
-
-
-    
+	@Override
+	public Void visit(SaInstIncr node) throws Exception {
+		String nodeName = this.childName;
+		printOpenTag(nodeName, node);
+		this.childName = "var";
+		node.getVar().accept(this);
+		this.childName = "exp";
+		node.getExp().accept(this);
+		printCloseTag(nodeName);
+		return null;
+	}
 }

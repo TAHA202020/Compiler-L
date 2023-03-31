@@ -1,0 +1,47 @@
+<programme type="SaProg">
+ <variables type="SaLDecVar">
+  <tete type="SaDecVarSimple" nom="a" typeVariable="entier"/>
+ </variables>
+ <fonctions type="SaLDecFonc">
+  <tete type="SaDecFonc" nom="main" typeRetour="nul">
+   <corps type="SaInstBloc">
+    <val type="SaLInst">
+     <tete type="SaInstAffect">
+      <lhs type="SaVarSimple" nom="a"/>
+      <rhs type="SaExpInt" val="0"/>
+     </tete>
+     <queue type="SaLInst">
+      <tete type="SaInstFaire">
+       <test type="SaExpInf">
+        <op1 type="SaExpVar">
+         <var type="SaVarSimple" nom="a"/>
+        </op1>
+        <op2 type="SaExpInt" val="10"/>
+       </test>
+       <faire type="SaInstBloc">
+        <val type="SaLInst">
+         <tete type="SaInstEcriture">
+          <arg type="SaExpVar">
+           <var type="SaVarSimple" nom="a"/>
+          </arg>
+         </tete>
+         <queue type="SaLInst">
+          <tete type="SaInstAffect">
+           <lhs type="SaVarSimple" nom="a"/>
+           <rhs type="SaExpAdd">
+            <op1 type="SaExpVar">
+             <var type="SaVarSimple" nom="a"/>
+            </op1>
+            <op2 type="SaExpInt" val="1"/>
+           </rhs>
+          </tete>
+         </queue>
+        </val>
+       </faire>
+      </tete>
+     </queue>
+    </val>
+   </corps>
+  </tete>
+ </fonctions>
+</programme>

@@ -183,6 +183,14 @@ public class Sc2sa extends DepthFirstAdapter
     }
 
 
+    @Override
+    public void caseAFairetantque(AFairetantque node) {
+        node.getExpression().apply(this);
+        SaExp test=(SaExp)returnValue;
+        node.getBloc().apply(this);
+        SaInst faire=(SaInst) returnValue;
+        returnValue=new SaInstFaire(test,faire);
+    }
 
     @Override
     public void caseAMultiExpou(AMultiExpou node) {
@@ -200,7 +208,6 @@ public class Sc2sa extends DepthFirstAdapter
         SaExp op2 = (SaExp) returnValue;
         returnValue = new SaExpAnd(op2 , op1);
     }
-
     @Override
     public void caseAMultiExpnon(AMultiExpnon node) {
         node.getExpComparaisonInf().apply(this);
@@ -212,6 +219,13 @@ public class Sc2sa extends DepthFirstAdapter
             copy.get(i).apply(this);
             returnValue = new SaExpNot((SaExp) returnValue);
         }
+    }
+
+    @Override
+    public void caseAMultiExpCarre(AMultiExpCarre node) {
+        node.getExpCarre().apply(this);
+        SaExp op1 = (SaExp) returnValue;
+        returnValue = new SaExpCarre(op1);
     }
 
     @Override

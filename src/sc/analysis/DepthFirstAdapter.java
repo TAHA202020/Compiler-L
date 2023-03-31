@@ -391,6 +391,60 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outALireInstruction(node);
     }
 
+    public void inAFairetantqueInstruction(AFairetantqueInstruction node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAFairetantqueInstruction(AFairetantqueInstruction node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAFairetantqueInstruction(AFairetantqueInstruction node)
+    {
+        inAFairetantqueInstruction(node);
+        if(node.getFairetantque() != null)
+        {
+            node.getFairetantque().apply(this);
+        }
+        outAFairetantqueInstruction(node);
+    }
+
+    public void inAFairetantque(AFairetantque node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAFairetantque(AFairetantque node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAFairetantque(AFairetantque node)
+    {
+        inAFairetantque(node);
+        if(node.getSFaire() != null)
+        {
+            node.getSFaire().apply(this);
+        }
+        if(node.getBloc() != null)
+        {
+            node.getBloc().apply(this);
+        }
+        if(node.getTantQue() != null)
+        {
+            node.getTantQue().apply(this);
+        }
+        if(node.getExpression() != null)
+        {
+            node.getExpression().apply(this);
+        }
+        outAFairetantque(node);
+    }
+
     public void inALire(ALire node)
     {
         defaultIn(node);
@@ -1126,11 +1180,57 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseASingleExpDiv(ASingleExpDiv node)
     {
         inASingleExpDiv(node);
+        if(node.getExpCarre() != null)
+        {
+            node.getExpCarre().apply(this);
+        }
+        outASingleExpDiv(node);
+    }
+
+    public void inAMultiExpCarre(AMultiExpCarre node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAMultiExpCarre(AMultiExpCarre node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAMultiExpCarre(AMultiExpCarre node)
+    {
+        inAMultiExpCarre(node);
+        if(node.getExpCarre() != null)
+        {
+            node.getExpCarre().apply(this);
+        }
+        if(node.getCarre() != null)
+        {
+            node.getCarre().apply(this);
+        }
+        outAMultiExpCarre(node);
+    }
+
+    public void inASingleExpCarre(ASingleExpCarre node)
+    {
+        defaultIn(node);
+    }
+
+    public void outASingleExpCarre(ASingleExpCarre node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseASingleExpCarre(ASingleExpCarre node)
+    {
+        inASingleExpCarre(node);
         if(node.getExpressionPrimaire() != null)
         {
             node.getExpressionPrimaire().apply(this);
         }
-        outASingleExpDiv(node);
+        outASingleExpCarre(node);
     }
 
     public void inANombreExpressionPrimaire(ANombreExpressionPrimaire node)

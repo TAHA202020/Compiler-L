@@ -278,8 +278,16 @@ public class SaDepthFirstVisitor <T> implements SaVisitor <T>{
 	defaultOut(node);
 	return null;
     }
-    
-    // EXP -> inf EXP EXP
+
+	public T visit(SaExpCarre node) throws Exception
+	{
+		defaultIn(node);
+		node.getOp1().accept(this);
+		defaultOut(node);
+		return null;
+	}
+
+	// EXP -> inf EXP EXP
     public T visit(SaExpInf node) throws Exception
     {
 	defaultIn(node);
@@ -382,5 +390,20 @@ public class SaDepthFirstVisitor <T> implements SaVisitor <T>{
 	defaultOut(node);
 	return null;
     }
-    
+	public T visit(SaInstIncr node) throws Exception
+	{
+		defaultIn(node);
+		node.getVar().accept(this);
+		node.getExp().accept(this);
+		defaultOut(node);
+		return null;
+	}
+    public T visit(SaInstFaire node) throws Exception
+	{
+		defaultIn(node);
+		node.getTest().accept(this);
+		node.getFaire().accept(this);
+		defaultOut(node);
+		return null;
+	}
 }

@@ -1,0 +1,11 @@
+	t0 = call main
+	stop t0
+main	fbegin	#entree fonction
+	a = 10
+l0	write a	
+	t1 = 1
+	if a < 10 goto l2
+	t1 = 0
+l2	if t1 = 0 goto l1
+	goto l0
+l1	fend

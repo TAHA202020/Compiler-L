@@ -1,0 +1,7 @@
+	t0 = call main
+	stop t0
+main	fbegin	#entree fonction
+	a = 4
+	t1 = a * a
+	write t1	
+	fend

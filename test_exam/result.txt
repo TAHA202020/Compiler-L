@@ -1,0 +1,107 @@
+Évaluation de Diff de sa :
+8/8 correct (100.00%)
+	carre1.sa   CORRECT
+	carre2.sa   CORRECT
+	carre3.sa   CORRECT
+	carre4.sa   CORRECT
+	faire1.sa   CORRECT
+	faire2.sa   CORRECT
+	faire3.sa   CORRECT
+	faire4.sa   CORRECT
+Évaluation de Diff de ts :
+8/8 correct (100.00%)
+	carre1.ts   CORRECT
+	carre2.ts   CORRECT
+	carre3.ts   CORRECT
+	carre4.ts   CORRECT
+	faire1.ts   CORRECT
+	faire2.ts   CORRECT
+	faire3.ts   CORRECT
+	faire4.ts   CORRECT
+Évaluation de Execution de sa :
+8/8 correct (100.00%)
+	carre1.saout   CORRECT
+	carre2.saout   CORRECT
+	carre3.saout   CORRECT
+	carre4.saout   CORRECT
+	faire1.saout   CORRECT
+	faire2.saout   CORRECT
+	faire3.saout   CORRECT
+	faire4.saout   CORRECT
+Évaluation de Diff de c3a :
+8/8 correct (100.00%)
+	carre1.c3a   CORRECT
+	carre2.c3a   CORRECT
+	carre3.c3a   CORRECT
+	carre4.c3a   CORRECT
+	faire1.c3a   CORRECT
+	faire2.c3a   CORRECT
+	faire3.c3a   CORRECT
+	faire4.c3a   CORRECT
+Évaluation de Execution du c3a :
+8/8 correct (100.00%)
+	carre1.c3aout   CORRECT
+	carre2.c3aout   CORRECT
+	carre3.c3aout   CORRECT
+	carre4.c3aout   CORRECT
+	faire1.c3aout   CORRECT
+	faire2.c3aout   CORRECT
+	faire3.c3aout   CORRECT
+	faire4.c3aout   CORRECT
+Évaluation de Diff de pre-nasm :
+8/8 correct (100.00%)
+	carre1.pre-nasm   CORRECT
+	carre2.pre-nasm   CORRECT
+	carre3.pre-nasm   CORRECT
+	carre4.pre-nasm   CORRECT
+	faire1.pre-nasm   CORRECT
+	faire2.pre-nasm   CORRECT
+	faire3.pre-nasm   CORRECT
+	faire4.pre-nasm   CORRECT
+Évaluation de Execution du pre-nasm :
+8/8 correct (100.00%)
+	carre1.pre-nasmout   CORRECT
+	carre2.pre-nasmout   CORRECT
+	carre3.pre-nasmout   CORRECT
+	carre4.pre-nasmout   CORRECT
+	faire1.pre-nasmout   CORRECT
+	faire2.pre-nasmout   CORRECT
+	faire3.pre-nasmout   CORRECT
+	faire4.pre-nasmout   CORRECT
+Évaluation de Diff de nasm :
+8/8 correct (100.00%)
+	carre1.nasm   CORRECT
+	carre2.nasm   CORRECT
+	carre3.nasm   CORRECT
+	carre4.nasm   CORRECT
+	faire1.nasm   CORRECT
+	faire2.nasm   CORRECT
+	faire3.nasm   CORRECT
+	faire4.nasm   CORRECT
+Évaluation de Execution du nasm :
+8/8 correct (100.00%)
+	carre1.nasmout   CORRECT
+	carre2.nasmout   CORRECT
+	carre3.nasmout   CORRECT
+	carre4.nasmout   CORRECT
+	faire1.nasmout   CORRECT
+	faire2.nasmout   CORRECT
+	faire3.nasmout   CORRECT
+	faire4.nasmout   CORRECT
+Évaluation de Execution du binaire :
+8/8 correct (100.00%)
+	carre1.exeout   CORRECT
+	carre2.exeout   CORRECT
+	carre3.exeout   CORRECT
+	carre4.exeout   CORRECT
+	faire1.exeout   CORRECT
+	faire2.exeout   CORRECT
+	faire3.exeout   CORRECT
+	faire4.exeout   CORRECT
+Évaluation de ERR_TYPE :
+4/4 correct (100.00%)
+	carre1.l   CORRECT
+	carre2.l   CORRECT
+	faire1.l   CORRECT
+	faire2.l   CORRECT
+

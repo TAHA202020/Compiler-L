@@ -26,6 +26,8 @@ public interface Analysis extends Switch
     void caseAAppelInstruction(AAppelInstruction node);
     void caseAEcrireInstruction(AEcrireInstruction node);
     void caseALireInstruction(ALireInstruction node);
+    void caseAFairetantqueInstruction(AFairetantqueInstruction node);
+    void caseAFairetantque(AFairetantque node);
     void caseALire(ALire node);
     void caseAEcrire(AEcrire node);
     void caseAAffectation(AAffectation node);
@@ -53,6 +55,8 @@ public interface Analysis extends Switch
     void caseASingleExpMultiplication(ASingleExpMultiplication node);
     void caseAMultiExpDiv(AMultiExpDiv node);
     void caseASingleExpDiv(ASingleExpDiv node);
+    void caseAMultiExpCarre(AMultiExpCarre node);
+    void caseASingleExpCarre(ASingleExpCarre node);
     void caseANombreExpressionPrimaire(ANombreExpressionPrimaire node);
     void caseAPExpressionExpressionPrimaire(APExpressionExpressionPrimaire node);
     void caseAValBoolExpressionPrimaire(AValBoolExpressionPrimaire node);
@@ -84,6 +88,7 @@ public interface Analysis extends Switch
     void caseTAf(TAf node);
     void caseTCo(TCo node);
     void caseTCf(TCf node);
+    void caseTSFaire(TSFaire node);
     void caseTEntier(TEntier node);
     void caseTBool(TBool node);
     void caseTEgale(TEgale node);
@@ -100,6 +105,7 @@ public interface Analysis extends Switch
     void caseTInf(TInf node);
     void caseTPlus(TPlus node);
     void caseTMinus(TMinus node);
+    void caseTCarre(TCarre node);
     void caseTMult(TMult node);
     void caseTDiv(TDiv node);
     void caseTVrai(TVrai node);

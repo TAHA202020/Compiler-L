@@ -159,6 +159,18 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
+    public void caseAFairetantqueInstruction(AFairetantqueInstruction node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAFairetantque(AFairetantque node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
     public void caseALire(ALire node)
     {
         defaultCase(node);
@@ -316,6 +328,18 @@ public class AnalysisAdapter implements Analysis
 
     @Override
     public void caseASingleExpDiv(ASingleExpDiv node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAMultiExpCarre(AMultiExpCarre node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseASingleExpCarre(ASingleExpCarre node)
     {
         defaultCase(node);
     }
@@ -501,6 +525,12 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
+    public void caseTSFaire(TSFaire node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
     public void caseTEntier(TEntier node)
     {
         defaultCase(node);
@@ -592,6 +622,12 @@ public class AnalysisAdapter implements Analysis
 
     @Override
     public void caseTMinus(TMinus node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTCarre(TCarre node)
     {
         defaultCase(node);
     }

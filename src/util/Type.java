@@ -3,7 +3,7 @@ package util;
 public enum Type{
     NUL("nul", 0),
     ENTIER("entier", 4),
-    BOOL("bool", 1);
+    BOOL("bool", 4);
 
     private final String nom;
     private final int taille; // taille en octets

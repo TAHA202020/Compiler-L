@@ -57,6 +57,7 @@ public class Compiler
 		System.out.println("[PRINT SC]");
 		tree.apply(new Sc2Xml(baseName));
 	    }
+
 	    System.out.println("[BUILD SA] ");
 	    Sc2sa sc2sa = new Sc2sa();
 	    tree.apply(sc2sa);
@@ -66,7 +67,7 @@ public class Compiler
 		System.out.println("[PRINT SA]");
 		new Sa2Xml(saRoot, baseName);
 		}
-
+/*
 		System.out.println("[BUILD TS] ");
 	    Ts tableGlobale = new Sa2ts(saRoot).getTableGlobale();
 
@@ -91,7 +92,7 @@ public class Compiler
 		System.out.println("[PRINT PRE NASM] ");
 		nasm.affichePreNasm(baseName);
 		}
-
+*/
 	    /*System.out.println("[BUILD FG] ");
 	    Fg fg = new Fg(nasm);
 		
