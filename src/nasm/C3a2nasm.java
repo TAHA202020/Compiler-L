@@ -276,6 +276,7 @@ public class C3a2nasm implements C3aVisitor <NasmOperand> {
 				{
 					NasmOperand r=nasm.newRegister();
 					nasm.ajouteInst(new NasmMov(null,r,oper.index.accept(this),""));
+					nasm.ajouteInst(new NasmMov(null,oper.index.accept(this),new NasmConstant(oper.item.taille),""));
 					nasm.ajouteInst(new NasmMov(null,r,new NasmConstant(8 + (4 * currentFct.nbArgs) - oper.item.adresse),""));
 					return new NasmAddress(ebp, '+', r);
 				}
@@ -285,6 +286,7 @@ public class C3a2nasm implements C3aVisitor <NasmOperand> {
 			{
 				NasmOperand r=nasm.newRegister();
 				nasm.ajouteInst(new NasmMov(null,r,oper.index.accept(this),""));
+				nasm.ajouteInst(new NasmMov(null,oper.index.accept(this),new NasmConstant(oper.item.taille),""));
 				nasm.ajouteInst(new NasmMov(null,r,new NasmConstant(4+oper.item.adresse),""));
 				return new NasmAddress(ebp, '+', r);
 			}

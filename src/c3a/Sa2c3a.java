@@ -119,7 +119,7 @@ public class Sa2c3a extends SaDepthFirstVisitor <C3aOperand> {
         System.out.println("here");
         C3aOperand var=node.getLhs().accept(this);
         C3aOperand value=node.getRhs().accept(this);
-        c3a.ajouteInst(new C3aInstAffect(value,var,"Affectation"));
+        c3a.ajouteInst(new C3aInstAffect(value,var,""));
         return null;
     }
     public C3aOperand visit(SaInstRetour node)throws Exception
@@ -235,6 +235,8 @@ public class Sa2c3a extends SaDepthFirstVisitor <C3aOperand> {
         c3a.ajouteInst(new C3aInstJumpIfEqual(test, c3a.True,alors,""));
         if (node.getSinon()!=null)
             c3a.ajouteInst(new C3aInstJumpIfEqual(test, c3a.False,sinon,""));
+        else
+            c3a.ajouteInst(new C3aInstJumpIfEqual(test, c3a.False,endsi,""));
         if (node.getAlors()!=null)
         {
             c3a.addLabelToNextInst((C3aLabel) alors);

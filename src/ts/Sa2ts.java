@@ -174,8 +174,6 @@ public class Sa2ts extends SaDepthFirstVisitor <Void> {
 	{
 
 		defaultIn(node);
-		System.out.println(fctcourante);
-		System.out.println(node.getNom());
 		if (tableGlobale.getFct(node.getNom())==null )
 		{
 			throw new ErrorException(Error.TS,"fonction non declaré ");
@@ -183,8 +181,6 @@ public class Sa2ts extends SaDepthFirstVisitor <Void> {
 		if (node.getArguments()!=null)
 		{
 			node.getArguments().accept(this);
-			System.out.println(node.getArguments().length());
-			System.out.println(tableGlobale.getFct(node.getNom()).getNbArgs());
 			if (node.getArguments().length()!=tableGlobale.getFct(node.getNom()).getNbArgs())
 				throw  new ErrorException(Error.TS," nombre de parametre n'est pas correcte 1");
 		}else
